@@ -1,0 +1,20 @@
+---
+- name: setup repo client
+  hosts: node1
+  tasks:
+  - name: create repo on nodes
+    yum_repository:
+      name: "{{ item.name }}"
+      description: "{{ item.description }}"
+      baseurl: "{{ item.baseurl }}"
+      gpgcheck: "{{ item.gpgcheck }}"
+    loop:
+      - name: AppStream
+        description: AppStream-rhel-repo
+        baseurl: ftp://control.streetrack.org/AppStream
+        gpgcheck: no
+      - name: BaseOS
+        description: BaseOS-rhel-repo
+        baseurl: ftp://control.streetrack.org/BaseOS
+        gpgcheck: no
+

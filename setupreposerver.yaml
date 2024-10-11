@@ -1,0 +1,50 @@
+---
+- name: setup repo server
+  hosts: localhost
+  tasks:
+  - name: confirm vsftpd installed
+    yum:
+      name: vsftpd
+      state: present
+  - name: create repo directory
+    file:
+      path: /var/ftp/repo
+      state: directory
+  - name: edit vsftpd config file
+    lineinfile:
+      path: /etc/vsftpd/vsftpd.conf
+      regex: '^anonymous_enable'
+      line: anonymous_enable=YES
+  - name: add anon_root 
+    lineinfile:
+      path: /etc/vsftpd/vsftpd.conf
+      line: anon_root=/var/ftp/repo
+  - name: seboolean ftpd_full_access
+    seboolean:
+      name: ftpd_full_access
+      state: true
+      persistent: true
+  - name: open firewall ftp service
+    firewalld:
+      service: ftp
+      state: enabled
+      permanent: true
+      immediate: true
+  - name: restart services
+    service:
+      name: "{{ item }}"
+      state: restarted
+      enabled: true
+    loop:
+      - firewalld
+      - vsftpd
+
+  - name: mount
+    mount:
+      path: /var/ftp/repo
+      src: /dev/sr0
+      fstype: iso9660
+      opts: ro,noauto
+      state: mounted
+    tags: mount
+

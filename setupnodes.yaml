@@ -1,0 +1,31 @@
+---
+- name: create ansible user with privileges
+  hosts: node1
+  tasks:
+  - name: confirm python installed
+    yum:
+      name: python
+      state: present
+  - name: create ansible user
+    user:
+      name: ansible
+      password: $6$cGUd3oF/o6jAkKV6$Dchj80B.Nmy6F3Fol6gOO79aVoFcnwgyrNluhGfCA8dimEeQc9Kmm0TzDYwmALSdQKQfRPxOloe6UzKgMCqBD0
+  - name: give sudo privileges
+    copy:
+      content: "ansible ALL=(ALL) NOPASSWD: ALL\n"
+      dest: /etc/sudoers.d/ansible
+  - name: copy public key
+    authorized_key:
+      user: ansible
+      state: present
+      key: "{{ lookup('file', '/home/ansible/.ssh/id_rsa.pub') }}"
+
+- name: edit ansible config file
+  hosts: localhost
+  tasks:
+  - name: edit ansible.cfg
+    lineinfile:
+      path: ./ansible.cfg
+      regex: '^remote_user'
+      line: remote_user=ansible
+
