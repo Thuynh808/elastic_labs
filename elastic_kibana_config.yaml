@@ -46,7 +46,7 @@
       - kibana    
  
   - name: generate verification code
-    shell: "/usr/share/kibana/bin/kibana-verification-code"
+    shell: "sudo /usr/share/kibana/bin/kibana-verification-code"
     register: verification_code
   
   - name: verification_code
