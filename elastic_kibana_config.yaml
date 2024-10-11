@@ -37,15 +37,6 @@
       content: "{{ password_result.stdout_lines[1] }}\n"
       dest: ./password_result
 
-  - name: kibana verification code
-    shell: '/usr/share/kibana/bin/kibana-verification-code'
-    register: verification_code
-
-  - name: create verification_code file
-    copy:
-      content: "{{ verification_code }}\n"
-      dest: ./verification_code
-
   - name: restart services
     service:
       name: "{{ item }}"
@@ -53,3 +44,15 @@
     loop:
       - elasticsearch
       - kibana    
+ 
+  - name: generate verification code
+    shell: "/usr/share/kibana/bin/kibana-verification-code"
+    register: verification_code
+  
+  - name: verification_code
+    copy:
+      content: "{{ verification_code.stdout_lines[0] }}\n"
+      dest: ./verification_code
+  
+  - name: cat credentials
+    shell: 'cat enrollment_token password_result verification_code'

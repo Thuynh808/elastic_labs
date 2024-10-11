@@ -20,7 +20,7 @@
     rpm_key:
       state: present
       key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
-  - name: create grafana repo
+  - name: create repos
     yum_repository:
       name: "{{ item.name }}"
       description: "{{ item.description }}"
