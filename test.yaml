@@ -1,0 +1,12 @@
+---
+- name: testing
+  hosts: localhost
+  tasks:
+  - name: kibana verification code
+    shell: '/usr/share/kibana/bin/kibana-verification-code'
+    register: verification_code
+
+  - name: create verification_code file
+    debug:
+      msg: "{{ verification_code }}"
+    tags: verification_code

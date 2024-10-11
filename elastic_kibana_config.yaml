@@ -2,7 +2,6 @@
 - name: configure kibana
   hosts: localhost
   vars:
-    elastic_password: "password"  # Define password here
     kibana:
       - path: /etc/kibana/kibana.yml
         regex: '^#server.host:'
@@ -35,5 +34,22 @@
 
   - name: password_result
     copy:
-      content: "{{ password_result.stdout_lines[1] }}"
+      content: "{{ password_result.stdout_lines[1] }}\n"
       dest: ./password_result
+
+  - name: kibana verification code
+    shell: '/usr/share/kibana/bin/kibana-verification-code'
+    register: verification_code
+
+  - name: create verification_code file
+    copy:
+      content: "{{ verification_code }}\n"
+      dest: ./verification_code
+
+  - name: restart services
+    service:
+      name: "{{ item }}"
+      state: restarted
+    loop:
+      - elasticsearch
+      - kibana    
