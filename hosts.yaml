@@ -1,0 +1,9 @@
+---
+- name: configure /etc/hosts file
+  hosts: all
+  tasks:
+  - name: generate /etc/hosts file
+    template:
+      src: ./etc_hosts.j2
+      dest: /etc/hosts
+  
