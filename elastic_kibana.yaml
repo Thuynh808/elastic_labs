@@ -68,7 +68,6 @@
       - kibana
       - firewalld
 
----
 - name: configure elasticsearch/kibana
   hosts: localhost
   vars:
