@@ -44,15 +44,3 @@
     loop:
       - elasticsearch
       - kibana    
- 
-  - name: generate verification code
-    shell: "sudo /usr/share/kibana/bin/kibana-verification-code"
-    register: verification_code
-  
-  - name: verification_code
-    copy:
-      content: "{{ verification_code.stdout_lines[0] }}\n"
-      dest: ./verification_code
-  
-  - name: cat credentials
-    shell: 'cat enrollment_token password_result verification_code'
