@@ -35,8 +35,8 @@ To install and set up the project, follow these steps:
 
 1. **Clone the repository:** <br><br>
    ```bash
-   git clone https://github.com/Thuynh808/HA-WebTrack
-   cd HA-WebTrack
+   git clone https://github.com/Thuynh808/elastic_labs
+   cd elastic_labs
    ```
 2. **Install required Ansible collections:** <br><br>
    ```bash
