@@ -49,3 +49,27 @@ To install and set up the project, follow these steps:
 4. **Configure inventory `ansible_host`:** <br><br>
    ```bash
    vim inventory
+
+---
+---
+
+
+<br><br>
+
+---
+
+5. **install elasticsearch and kibana:** <br><br>
+   ```bash
+   ansible-playbook elastic_kibana.yaml -vv
+   ```
+6. **cat out enrollemnt_token:** <br><br>
+   ```bash
+   cat enrollment_token password_result
+   ```
+7. navigate with browser to control's ip on port 5601
+8. copy and paste enrollment token  
+9. **run verification_code executable:** <br><br>
+   ```bash
+   ./verification_code.sh
+   ```
+10. copy and paste verification code 
