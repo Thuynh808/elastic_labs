@@ -72,4 +72,6 @@ To install and set up the project, follow these steps:
    ```bash
    ./verification_code.sh
    ```
-10. copy and paste verification code 
+10. copy and paste verification code
+11. log in with user `elastic` password from password_result
+12. 
