@@ -1,6 +1,6 @@
 ---
 - name: create ansible user with privileges
-  hosts: test
+  hosts: fleet agents attacker
   tasks:
   - name: confirm python installed
     yum:

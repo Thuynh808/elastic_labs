@@ -1,6 +1,6 @@
 ---
 - name: setup repo client
-  hosts: test
+  hosts: fleet agents attacker
   tasks:
   - name: create repo on nodes
     yum_repository:

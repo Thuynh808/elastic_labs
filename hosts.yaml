@@ -1,6 +1,6 @@
 ---
 - name: initial setup
-  hosts: node1
+  hosts: fleet agents attacker
   tasks:
   - name: copy public key to nodes
     authorized_key:
