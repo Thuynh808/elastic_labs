@@ -1,6 +1,7 @@
 ---
 - name: setup kibana
   hosts: localhost
+  vars_files: kibana_keys.yaml
   vars:
     packages:
       - name: elasticsearch
@@ -61,7 +62,7 @@
   - name: start and enable packages
     service:
       name: "{{ item }}"
-      state: started
+      state: restarted
       enabled: true
     loop:
       - elasticsearch
@@ -100,7 +101,7 @@
   - name: create elastic token for kibana
     shell: '/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana > enrollment_token'
   
-  - name: Set password for elastic user
+  - name: reset password for elastic user
     shell: "/usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic --batch"
     register: password_result
 
@@ -108,7 +109,30 @@
     copy:
       content: "{{ password_result.stdout_lines[1] }}\n"
       dest: ./password_result
+  
+  - name: generate encryption keys for kibana
+    shell: 'sudo /usr/share/kibana/bin/kibana-encryption-keys generate | tail -4 >> kibana_keys.yaml'
+  
+  - name: add saved objects key
+    expect:
+      command: 'sudo /usr/share/kibana/bin/kibana-keystore add xpack.encryptedSavedObjects.encryptionKey'
+      responses:
+        Enter value for xpack.encryptedSavedObjects.encryptionKey: "{{ vars['xpack.encryptedSavedObjects.encryptionKey'] }}"
 
+  - name: add reporting key
+    expect:
+      command: 'sudo /usr/share/kibana/bin/kibana-keystore add xpack.reporting.encryptionKey'
+      responses:
+        Enter value for xpack.reporting.encryptionKey: "{{ vars['xpack.reporting.encryptionKey'] }}"
+
+  - name: add security key
+    expect:
+      command: 'sudo /usr/share/kibana/bin/kibana-keystore add xpack.security.encryptionKey'
+      responses:
+        Enter value for xpack.security.encryptionKey: "{{ vars['xpack.security.encryptionKey'] }}"
+
+  - name: reload systemd
+    shell: 'systemctl daemon-reload'
   - name: restart services
     service:
       name: "{{ item }}"
