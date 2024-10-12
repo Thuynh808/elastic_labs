@@ -1,7 +1,6 @@
 ---
 - name: setup kibana
   hosts: localhost
-  vars_files: kibana_keys.yaml
   vars:
     packages:
       - name: elasticsearch
@@ -71,6 +70,7 @@
 
 - name: configure elasticsearch/kibana
   hosts: localhost
+  vars_files: ./kibana_keys.yaml
   vars:
     kibana:
       - path: /etc/kibana/kibana.yml
@@ -113,23 +113,17 @@
   - name: generate encryption keys for kibana
     shell: 'sudo /usr/share/kibana/bin/kibana-encryption-keys generate | tail -4 >> kibana_keys.yaml'
   
-  - name: add saved objects key
-    expect:
-      command: 'sudo /usr/share/kibana/bin/kibana-keystore add xpack.encryptedSavedObjects.encryptionKey'
-      responses:
-        Enter value for xpack.encryptedSavedObjects.encryptionKey: "{{ vars['xpack.encryptedSavedObjects.encryptionKey'] }}"
+  - name: Add xpack.encryptedSavedObjects.encryptionKey to Kibana keystore
+    shell: |
+        echo "{{ vars['xpack.encryptedSavedObjects.encryptionKey'] }}" | sudo /usr/share/kibana/bin/kibana-keystore add xpack.encryptedSavedObjects.encryptionKey --stdin
 
-  - name: add reporting key
-    expect:
-      command: 'sudo /usr/share/kibana/bin/kibana-keystore add xpack.reporting.encryptionKey'
-      responses:
-        Enter value for xpack.reporting.encryptionKey: "{{ vars['xpack.reporting.encryptionKey'] }}"
+  - name: Add xpack.reporting.encryptionKey to Kibana keystore
+    shell: |
+        echo "{{ vars['xpack.reporting.encryptionKey'] }}" | sudo /usr/share/kibana/bin/kibana-keystore add xpack.reporting.encryptionKey --stdin
 
-  - name: add security key
-    expect:
-      command: 'sudo /usr/share/kibana/bin/kibana-keystore add xpack.security.encryptionKey'
-      responses:
-        Enter value for xpack.security.encryptionKey: "{{ vars['xpack.security.encryptionKey'] }}"
+  - name: Add xpack.security.encryptionKey to Kibana keystore
+    shell: |
+        echo "{{ vars['xpack.security.encryptionKey'] }}" | sudo /usr/share/kibana/bin/kibana-keystore add xpack.security.encryptionKey --stdin
 
   - name: reload systemd
     shell: 'systemctl daemon-reload'
