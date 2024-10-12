@@ -74,4 +74,5 @@ To install and set up the project, follow these steps:
    ```
 10. copy and paste verification code
 11. log in with user `elastic` password from password_result
-12. 
+12. under menu, click on integrations, click on elastic agent and choose add.
+13. 
