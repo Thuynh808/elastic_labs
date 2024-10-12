@@ -1,6 +1,6 @@
 ---
 - name: setup repo client
-  hosts: node1
+  hosts: test
   tasks:
   - name: create repo on nodes
     yum_repository:

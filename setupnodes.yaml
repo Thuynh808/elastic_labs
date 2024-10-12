@@ -1,6 +1,6 @@
 ---
 - name: create ansible user with privileges
-  hosts: node1
+  hosts: test
   tasks:
   - name: confirm python installed
     yum:
