@@ -78,6 +78,9 @@
       - path: /etc/kibana/kibana.yml
         regex: '^#server.port:'
         line: "server.port: 5601"
+      - path: /etc/kibana/kibana.yml
+        regex: '^#server.publicBaseUrl:'
+        line: 'server.publicBaseUrl: "http://' + {{ ansible_default_ipv4['address'] }} + ':5601"'
     elastic:
       - path: /etc/elasticsearch/elasticsearch.yml
         regex: '^#network.host:'
