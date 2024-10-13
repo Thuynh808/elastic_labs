@@ -99,8 +99,16 @@
     loop: "{{ elastic + kibana }}"
   
   - name: create elastic token for kibana
-    shell: '/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana > enrollment_token'
-  
+    shell: '/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana'
+    register: enrollment_token
+
+  - name: enrollment token
+    copy:
+      content: "{{ enrollment_token }}\n"
+      dest: ./enrollment_token
+      owner: ansible
+      group: ansible
+
   - name: reset password for elastic user
     shell: "/usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic --batch | sed 's/^New value: //g'"
     register: password_result
@@ -109,6 +117,8 @@
     copy:
       content: "{{ password_result.stdout_lines[1] }}\n"
       dest: ./password_result
+      owner: ansible
+      group: ansible
   
   - name: generate encryption keys for kibana
     shell: 'sudo /usr/share/kibana/bin/kibana-encryption-keys generate | tail -4 >> kibana_keys.yaml'
