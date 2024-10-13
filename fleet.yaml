@@ -2,11 +2,21 @@
 - name: fleet server
   hosts: localhost
   tasks:
+  - name: create kibana auth
+    shell: echo elastic:{{ lookup('file', './password_result') }}
+    register: cred
+  - name: output to file
+    copy:
+      content: "{{ cred.stdout_lines[0] }}"
+      dest: kibana_authh
+  - name: convert to base64
+    shell: cat kibana_authh | base64 > kibana_auth
   - name: create fleet server policy
     template:
-      src: ./fleet_policy.j2
-      dest: ./fleet_policy.sh
-      owner: ansible
-      group: ansible
-      mode: '0755'
-
+     src: ./fleet_policy.j2
+     dest: ./fleet_policy.sh
+     owner: ansible
+     group: ansible
+     mode: '0755'
+  - name: execute fleet_policy.sh
+    shell: ./fleet_policy.sh
