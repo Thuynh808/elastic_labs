@@ -1,0 +1,17 @@
+curl -u elastic:{{ lookup('file', './password_result') }} --request POST \
+  --url https://<Kibana-URL>/api/fleet/agent_policies \
+  --header 'kbn-xsrf: true' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Fleet Server Policy",
+    "namespace": "default",
+    "description": "Policy for managing Fleet Server on node1",
+    "monitoring_enabled": [],   # No logs/metrics for Fleet Server itself
+    "package_policies": [{
+      "name": "fleet_server",
+      "package": {
+        "name": "fleet_server"
+      }
+    }]
+  }'
+

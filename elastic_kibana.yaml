@@ -102,7 +102,7 @@
     shell: '/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana > enrollment_token'
   
   - name: reset password for elastic user
-    shell: "/usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic --batch"
+    shell: "/usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic --batch | sed 's/^New value: //g'"
     register: password_result
 
   - name: password_result

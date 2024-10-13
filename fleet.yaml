@@ -1,0 +1,12 @@
+---
+- name: fleet server
+  hosts: localhost
+  tasks:
+  - name: create fleet server policy
+    template:
+      src: ./fleet_policy.j2
+      dest: ./fleet_policy.sh
+      owner: ansible
+      group: ansible
+      mode: '0755'
+
