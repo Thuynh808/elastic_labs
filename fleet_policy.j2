@@ -1,17 +1,14 @@
-curl -u elastic:{{ lookup('file', './password_result') }} --request POST \
-  --url http://{{ ansible_default_ipv4.address }}:5601/api/fleet/agent_policies \
+curl --request POST \
+  --url 'http://{{ ansible_default_ipv4.address }}:5601/api/fleet/agent_policies?sys_monitoring=true' \
   --header 'kbn-xsrf: true' \
+  --header 'Accept: */*' \
+  --header 'Authorization: Basic {{ lookup('file', './kibana_auth') }}' \
   --header 'Content-Type: application/json' \
   --data '{
-    "name": "Fleet Server Policy",
+    "name": "fleet-server-policy",
+    "description": "Policy for Fleet Server",
     "namespace": "default",
-    "description": "Policy for managing Fleet Server on node1",
-    "monitoring_enabled": [],
-    "package_policies": [{
-      "name": "fleet_server",
-      "package": {
-        "name": "fleet_server"
-      }
-    }]
-  }'
-
+    "monitoring_enabled": ["logs", "metrics"],
+    "has_fleet_server": true
+  }' --insecure
+\n
