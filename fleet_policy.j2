@@ -6,7 +6,7 @@ curl -u elastic:{{ lookup('file', './password_result') }} --request POST \
     "name": "Fleet Server Policy",
     "namespace": "default",
     "description": "Policy for managing Fleet Server on node1",
-    "monitoring_enabled": [],   # No logs/metrics for Fleet Server itself
+    "monitoring_enabled": [],
     "package_policies": [{
       "name": "fleet_server",
       "package": {
