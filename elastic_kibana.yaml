@@ -104,7 +104,7 @@
 
   - name: enrollment token
     copy:
-      content: "{{ enrollment_token }}\n"
+      content: "{{ enrollment_token.stdout_lines[0] }}\n"
       dest: ./enrollment_token
       owner: ansible
       group: ansible
