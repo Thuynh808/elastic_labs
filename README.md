@@ -78,7 +78,9 @@ To install and set up the project, follow these steps:
 10. copy and paste verification code
 11. log in with user `elastic` password from password_result
 11. execute kibana_auth.sh 
-
+    ```bash
+    ./kibana_auth.sh
+    ```
 12. **run playbook to create fleet server policy:** <br><br>
    ```bash
    ansible-playbook fleet.yaml -vv
