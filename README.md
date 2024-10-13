@@ -58,7 +58,7 @@ To install and set up the project, follow these steps:
 
 5. **run initial setup - hosts, repos, user, ansible configs:** <br><br>
    ```bash
-   ./inititial-setup.sh
+   ./initial-setup.sh
    ```
 
 5. **install elasticsearch and kibana:** <br><br>
