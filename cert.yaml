@@ -1,0 +1,41 @@
+---
+- name: setup certificates
+  hosts: local fleet
+  tasks:
+  - name: generate service token
+    shell: "sudo /usr/share/elasticsearch/bin/elasticsearch-service-tokens create elastic/fleet-server myservicetoken | awk -F'= ' '{print $2}' > myservicetoken"
+    when: inventory_hostname in groups['local']
+
+  - name: generate certificate authority
+    shell: 'sudo /usr/share/elasticsearch/bin/elasticsearch-certutil ca --pem --out /home/ansible/elastic_labs/ca'
+    when: inventory_hostname in groups['local']
+
+  - name: unzip ca
+    shell: 'sudo unzip ca'
+    when: inventory_hostname in groups['local']
+
+  - name: generate fleet-server certificate and key
+    shell: 'sudo /usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca-cert /home/ansible/elastic_labs/ca/ca.crt --ca-key /home/ansible/elastic_labs/ca/ca.key --pem --out /home/ansible/elastic_labs/fleet-server'
+    when: inventory_hostname in groups['local']
+
+  - name: unzip fleet-server
+    shell: 'sudo unzip fleet-server'
+    when: inventory_hostname in groups['local']
+
+  - name: copy certs and key to node1 fleet-server
+    copy:
+      src: "{{ item }}"
+      dest: /home/ansible/
+    loop:
+      - ./ca/ca.crt
+      - ./instance/instance.crt
+      - ./instance/instance.key
+    when: inventory_hostname in groups['fleet']
+
+  - name: create agent-instal script
+    template:
+      src: ./agent-install.j2
+      dest: /home/ansible/agent-install.sh
+      mode: '0755'
+    when: inventory_hostname in groups['fleet']
+
