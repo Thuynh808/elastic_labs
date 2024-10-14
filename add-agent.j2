@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo /home/ansible/elastic-agent-8.15.2-linux-x86_64/elastic-agent install \
-  --fleet-server-es=https://{{ hostvars['localhost'][' ansible_default_ipv4']['address'] }}:9200 \
+  --fleet-server-es=https://{{ hostvars['localhost']['ansible_host'] }}:9200 \
   --fleet-server-service-token={{ lookup('file', './myservicetoken') }} \
   --fleet-server-policy=fleet-server-policy \
   --certificate-authorities=/home/ansible/ca.crt \

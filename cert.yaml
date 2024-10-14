@@ -59,8 +59,8 @@
 
   - name: create agent-install script
     template:
-      src: ./agent-install.j2
-      dest: /home/ansible/agent-install.sh
+      src: ./add-agent.j2
+      dest: /home/ansible/add-agent.sh
       mode: '0755'
     when: inventory_hostname in groups['fleet']
 

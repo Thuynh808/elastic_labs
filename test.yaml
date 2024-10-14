@@ -1,12 +1,9 @@
 ---
 - name: testing
-  hosts: localhost
+  hosts: local fleet
   tasks:
-  - name: kibana verification code
-    shell: '/usr/share/kibana/bin/kibana-verification-code'
-    register: verification_code
-
-  - name: create verification_code file
-    debug:
-      msg: "{{ verification_code }}"
-    tags: verification_code
+  - name: template
+    template:
+      src: add-agent.j2
+      dest: /home/ansible/add-agent.sh
+    when: inventory_host in groups['fleet']

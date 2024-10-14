@@ -82,5 +82,12 @@ To install and set up the project, follow these steps:
    ```bash
    ansible-playbook fleet.yaml -vv
    ```
-
+14. **run cert.yaml playbook for setting up authentication service tokens certs and keys, also to download and install agent on fleet server:** <br><br>
+   ```bash
+   ansible-playbook cert.yaml -vv
+   ```
+15. **run add-agent:** <br><br>
+   ```bash
+   sudo ./add-agent.sh
+   ```
     
