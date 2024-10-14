@@ -7,4 +7,4 @@ sudo /home/ansible/elastic-agent-8.15.2-linux-x86_64/elastic-agent install \
   --certificate-authorities=/home/ansible/ca.crt \
   --fleet-server-cert=/home/ansible/instance.crt \
   --fleet-server-cert-key=/home/ansible/instance.key \
-  --url=https://{{ hostvars['node1']['ansible_default_ipv4']['address'] }}:8220
+  --fleet-server-port=8220
