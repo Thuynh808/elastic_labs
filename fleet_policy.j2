@@ -5,9 +5,9 @@ curl --request POST \
   --header 'Authorization: Basic {{ lookup('file', './kibana_auth') }}' \
   --header 'Content-Type: application/json' \
   --data '{
-    "name": "fleet-server-policy",
-    "description": "Policy for Fleet Server",
+    "id": "fleet-server-policy",
+    "name": "Fleet Server Policy",
     "namespace": "default",
-    "monitoring_enabled": ["logs", "metrics"],
-    "has_fleet_server": true
-  }' --insecure
+    "description": "Policy for Fleet Server",
+    "is_default_fleet_server": true
+  }'
