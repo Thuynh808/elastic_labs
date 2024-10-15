@@ -19,6 +19,7 @@
   ```bash
   sudo useradd -m -s /bin/bash ansible
   echo "ansible:password" | sudo chpasswd
+  su - ansible
   ```
 
 ### Installation
