@@ -73,7 +73,6 @@
 
 - name: configure elasticsearch/kibana
   hosts: localhost
-  import_playbook: ./agent_port.yaml
   vars:
     kibana:
       - path: /etc/kibana/kibana.yml
