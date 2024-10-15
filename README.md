@@ -22,7 +22,6 @@
   echo "ansible ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/ansible
   su - ansible
   ```
-
 ### Installation
 To install and set up the project, follow these steps:
 
@@ -31,22 +30,14 @@ To install and set up the project, follow these steps:
    git clone -b dev https://github.com/Thuynh808/elastic_labs
    cd elastic_labs
    ```
-
 4. **Configure inventory `ansible_host`:** <br><br>
    ```bash
    vim inventory
-
----
----
-
-
-<br><br>
-
+   ```
 5. **run initial setup - hosts, repos, user, ansible configs:** <br><br>
    ```bash
    ./initial-setup.sh
    ```
-
 5. **install elasticsearch and kibana:** <br><br>
    ```bash
    ansible-playbook elastic_kibana.yaml -vv
@@ -64,16 +55,4 @@ To install and set up the project, follow these steps:
 10. copy and paste verification code
 11. log in with user `elastic` password from password_result
 
-12. **run playbook to create fleet server policy:** <br><br>
-   ```bash
-   ansible-playbook fleet.yaml -vv
-   ```
-14. **run cert.yaml playbook for setting up authentication service tokens certs and keys, also to download and install agent on fleet server:** <br><br>
-   ```bash
-   ansible-playbook cert.yaml -vv
-   ```
-15. **run add-agent:** <br><br>
-   ```bash
-   sudo ./add-agent.sh
-   ```
     
