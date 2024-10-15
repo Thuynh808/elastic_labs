@@ -26,7 +26,7 @@
 
   - name: Generate an OpenSSH keypair with the default values and no passphrase
     community.crypto.openssh_keypair:
-      path: /home/ansible/.ssh/
+      path: /home/ansible/.ssh/id_rsa
       owner: ansible
       group: ansible
     when: inventory_hostname in groups['local']
