@@ -1,12 +1,7 @@
 #!/bin/bash
 
-ansible-playbook setupproject.yaml -vv
 
-su - ansible
-
-cd elastic_labs
-
-ansible-galaxy collection install -r requirements.yaml
+ansible-galaxy collection install -r requirements.yaml -vv
 
 ansible-playbook setupnodes.yaml -vv
 
