@@ -9,4 +9,3 @@ ansible-playbook setupreposerver.yaml -vv
 
 ansible-playbook setuprepoclient.yaml -vv
 
-
