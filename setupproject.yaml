@@ -15,4 +15,3 @@
       owner: ansible
       group: ansible
       mode: '0755'
-      recurse: true
