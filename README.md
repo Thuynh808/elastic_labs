@@ -30,14 +30,7 @@ To install and set up the project, follow these steps:
    git clone -b dev https://github.com/Thuynh808/elastic_labs
    cd elastic_labs
    ```
-2. **Install required Ansible collections:** <br><br>
-   ```bash
-   ansible-galaxy collection install -r requirements.yaml
-   ```
-3. **Confirm Mount the RHEL ISO:** <br><br>
-   ```bash
-   sudo mount /dev/sr0 /mnt
-   ```
+
 4. **Configure inventory `ansible_host`:** <br><br>
    ```bash
    vim inventory
