@@ -123,7 +123,7 @@
       group: ansible
   
   - name: generate encryption keys for kibana
-    shell: 'sudo /usr/share/kibana/bin/kibana-encryption-keys generate | tail -4 > kibana_keys.yaml'
+    shell: 'sudo /usr/share/kibana/bin/kibana-encryption-keys generate | tail -4 >> kibana_keys.yaml'
   
   - name: Add xpack.encryptedSavedObjects.encryptionKey to Kibana keystore
     shell: |
