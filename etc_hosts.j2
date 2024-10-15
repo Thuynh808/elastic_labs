@@ -2,8 +2,6 @@
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
 {{ hostvars['localhost']['ansible_host'] }}   {{ hostvars['localhost']['ansible_fqdn'] }}   {{ hostvars['localhost']['ansible_hostname'] }}
-{% for group in ['fleet', 'agents', 'attacker'] %}
-{% for host in groups[group] %}
+{% for host in groups['nodes'] %}
 {{ hostvars[host]['ansible_default_ipv4']['address'] }}   {{ hostvars[host]['ansible_fqdn'] }}   {{ hostvars[host]['ansible_hostname'] }}
-{% endfor %}
 {% endfor %}

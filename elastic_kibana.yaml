@@ -58,7 +58,7 @@
       - 5601
   - name: reload systemd
     shell: 'systemctl daemon-reload'
-  - name: start and enable packages
+  - name: start and enable services
     service:
       name: "{{ item }}"
       state: restarted
@@ -68,9 +68,12 @@
       - kibana
       - firewalld
 
+- name: open port for fleet-server/agent
+  import_playbook: ./agent_port.yaml
+
 - name: configure elasticsearch/kibana
   hosts: localhost
-  vars_files: ./kibana_keys.yaml
+  import_playbook: ./agent_port.yaml
   vars:
     kibana:
       - path: /etc/kibana/kibana.yml
@@ -121,7 +124,7 @@
       group: ansible
   
   - name: generate encryption keys for kibana
-    shell: 'sudo /usr/share/kibana/bin/kibana-encryption-keys generate | tail -4 >> kibana_keys.yaml'
+    shell: 'sudo /usr/share/kibana/bin/kibana-encryption-keys generate | tail -4 > kibana_keys.yaml'
   
   - name: Add xpack.encryptedSavedObjects.encryptionKey to Kibana keystore
     shell: |

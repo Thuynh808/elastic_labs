@@ -1,0 +1,15 @@
+---
+- name: open port for agents
+  hosts: fleet agents
+  tasks:
+  - name: open port 8220 in firewalld for agents
+    firewalld:
+      port: 8220/tcp
+      permanent: true
+      state: enabled
+      immediate: true
+  - name: restart firewalld
+    service:
+      name: firewalld
+      state: restarted
+
