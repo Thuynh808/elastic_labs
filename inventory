@@ -12,3 +12,8 @@ node2	ansible_host=192.168.68.82
 
 [attacker]
 node3	ansible_host=192.168.68.83
+
+[nodes:children]
+fleet
+agents
+attacker

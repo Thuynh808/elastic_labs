@@ -1,13 +1,14 @@
 ---
 - name: create ansible user with privileges
-  hosts: local fleet agents attacker
+  hosts: local nodes
   tasks:
 
   - name: create ansible user
     user:
       name: ansible
       password: $6$cGUd3oF/o6jAkKV6$Dchj80B.Nmy6F3Fol6gOO79aVoFcnwgyrNluhGfCA8dimEeQc9Kmm0TzDYwmALSdQKQfRPxOloe6UzKgMCqBD0
-  
+    when: inventory_hostname in groups['nodes']
+
   - name: give sudo privileges
     copy:
       content: "ansible ALL=(ALL) NOPASSWD: ALL\n"
@@ -34,7 +35,7 @@
       user: ansible
       state: present
       key: "{{ lookup('file', '/home/ansible/.ssh/id_rsa.pub') }}"
-    when: inventory_hostname in groups['fleet', 'agents', 'attacker']
+    when: inventory_hostname in groups['nodes']
 
   - name: generate /etc/hosts file with template
     template:
@@ -43,7 +44,7 @@
 
   - name: toggle off ask_pass
     lineinfile:
-      path: ./ansible.cfg
+      path: /home/ansible/elastic_labs/ansible.cfg
       regex: "{{ item.regex }}"
       line: "{{ item.line }}"
     when: inventory_hostname in groups['local']

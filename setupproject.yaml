@@ -1,0 +1,18 @@
+---
+- name: create ansible user on control
+  hosts: local
+  tasks:
+
+  - name: create ansible user
+    user:
+      name: ansible
+      password: $6$cGUd3oF/o6jAkKV6$Dchj80B.Nmy6F3Fol6gOO79aVoFcnwgyrNluhGfCA8dimEeQc9Kmm0TzDYwmALSdQKQfRPxOloe6UzKgMCqBD0
+  
+  - name: copy project directory to user ansible 
+    copy:
+      src: ../elastic_labs
+      dest: /home/ansible/
+      owner: ansible
+      group: ansible
+      mode: '0755'
+      recurse: true
