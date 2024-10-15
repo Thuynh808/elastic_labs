@@ -13,6 +13,7 @@
     copy:
       content: "ansible ALL=(ALL) NOPASSWD: ALL\n"
       dest: /etc/sudoers.d/ansible
+    when: inventory_hostname in groups['nodes']
 
   - name: create .ssh directory for user ansible
     file:
