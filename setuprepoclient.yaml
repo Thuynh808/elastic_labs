@@ -17,4 +17,8 @@
         description: BaseOS-rhel-repo
         baseurl: ftp://control.streetrack.org/BaseOS
         gpgcheck: no
-
+  
+  - name: confirm python installed
+    yum:
+      name: python
+      state: present
