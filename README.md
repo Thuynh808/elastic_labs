@@ -19,6 +19,7 @@
   ```bash
   sudo useradd -m -s /bin/bash ansible
   echo "ansible:password" | sudo chpasswd
+  echo "ansible ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/ansible
   su - ansible
   ```
 
