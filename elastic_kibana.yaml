@@ -1,4 +1,8 @@
 ---
+
+- name: open port for fleet-server/agent
+  import_playbook: ./agent_port.yaml
+
 - name: setup kibana
   hosts: localhost
   vars:
@@ -67,9 +71,6 @@
       - elasticsearch
       - kibana
       - firewalld
-
-- name: open port for fleet-server/agent
-  import_playbook: ./agent_port.yaml
 
 - name: configure elasticsearch/kibana
   hosts: localhost
