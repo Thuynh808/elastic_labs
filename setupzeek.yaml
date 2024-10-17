@@ -28,6 +28,7 @@
     loop:
       - 22
       - 47760
+      - 8220
   - name: enable ufw
     shell: "echo 'y' | ufw enable"
   - name: start and enable ufw

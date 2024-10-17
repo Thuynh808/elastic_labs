@@ -42,6 +42,10 @@ To install and set up the project, follow these steps:
    ```bash
    ansible-playbook elastic_kibana.yaml -vv
    ```
+5. **install and setup zeek on fleet server:** <br><br>
+   ```bash
+   ansible-playbook setupzeek.yaml -vv
+   ```
 6. **cat out enrollemnt_token:** <br><br>
    ```bash
    cat enrollment_token password_result
@@ -54,5 +58,6 @@ To install and set up the project, follow these steps:
    ```
 10. copy and paste verification code
 11. log in with user `elastic` password from password_result
+
 
     

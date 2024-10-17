@@ -1,6 +1,6 @@
 ---
 - name: open port for agents
-  hosts: fleet agents
+  hosts: agents
   tasks:
   - name: open port 8220 in firewalld for agents
     firewalld:
@@ -12,4 +12,5 @@
     service:
       name: firewalld
       state: restarted
+
 
