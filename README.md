@@ -38,6 +38,10 @@ To install and set up the project, follow these steps:
    ```bash
    ./initial-setup.sh
    ```
+5. **run timesync playbook:** <br><br>
+   ```bash
+   ansible-playbook timesync.yaml -vv
+   ```
 5. **install elasticsearch and kibana:** <br><br>
    ```bash
    ansible-playbook elastic_kibana.yaml -vv

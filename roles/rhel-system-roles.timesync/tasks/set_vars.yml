@@ -1,0 +1,33 @@
+---
+- name: Ensure ansible_facts used by role
+  setup:
+    gather_subset: "{{ __timesync_required_facts_subsets }}"
+  when: __timesync_required_facts |
+    difference(ansible_facts.keys() | list) | length > 0
+
+- name: Determine if system is ostree and set flag
+  when: not __timesync_is_ostree is defined
+  block:
+    - name: Check if system is ostree
+      stat:
+        path: /run/ostree-booted
+      register: __ostree_booted_stat
+
+    - name: Set flag to indicate system is ostree
+      set_fact:
+        __timesync_is_ostree: "{{ __ostree_booted_stat.stat.exists }}"
+
+- name: Set platform/version specific variables
+  include_vars: "{{ lookup('first_found', ffparams) }}"
+  vars:
+    ffparams:
+      files:
+        - "{{ ansible_facts['distribution'] }}_\
+          {{ ansible_facts['distribution_version'] }}.yml"
+        - "{{ ansible_facts['distribution'] }}_\
+          {{ ansible_facts['distribution_major_version'] }}.yml"
+        - "{{ ansible_facts['distribution'] }}.yml"
+        - "{{ ansible_facts['os_family'] }}.yml"
+        - "default.yml"
+      paths:
+        - "{{ role_path }}/vars"
