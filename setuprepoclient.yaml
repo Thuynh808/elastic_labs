@@ -8,6 +8,7 @@
       description: "{{ item.description }}"
       baseurl: "{{ item.baseurl }}"
       gpgcheck: "{{ item.gpgcheck }}"
+    when: ansible_os_family == 'RedHat'
     loop:
       - name: AppStream
         description: AppStream-rhel-repo
@@ -17,8 +18,25 @@
         description: BaseOS-rhel-repo
         baseurl: ftp://control.streetrack.org/BaseOS
         gpgcheck: no
-  
   - name: confirm python installed
     yum:
       name: python
       state: present
+    when: ansible_os_family == 'RedHat'
+
+
+  - name: add zeek gpg key
+    apt_key:
+      url: 'https://download.opensuse.org/repositories/security:zeek/xUbuntu_22.04/Release.key'
+      state: present
+    when: ansible_os_family == 'Debian'
+  - name: add zeek repo
+    apt_repository:
+      repo: 'deb http://download.opensuse.org/repositories/security:/zeek/xUbuntu_22.04/ /'
+      state: present
+    when: ansible_os_family == 'Debian'
+  - name: confirm python installed
+    apt:
+      name: python3
+      state: present
+    when: ansible_os_family == 'Debian'

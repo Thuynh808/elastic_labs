@@ -7,6 +7,7 @@
     user:
       name: ansible
       password: $6$cGUd3oF/o6jAkKV6$Dchj80B.Nmy6F3Fol6gOO79aVoFcnwgyrNluhGfCA8dimEeQc9Kmm0TzDYwmALSdQKQfRPxOloe6UzKgMCqBD0
+      shell: /bin/bash
     when: inventory_hostname in groups['nodes']
 
   - name: give sudo privileges
@@ -24,14 +25,14 @@
       mode: '0700'
     when: inventory_hostname in groups['local']
 
-  - name: Generate an OpenSSH keypair with the default values and no passphrase
+  - name: Generate ansible SSH keypair with the default values and no passphrase
     community.crypto.openssh_keypair:
       path: /home/ansible/.ssh/id_rsa
       owner: ansible
       group: ansible
     when: inventory_hostname in groups['local']
 
-  - name: copy public key
+  - name: copy ansible public key
     authorized_key:
       user: ansible
       state: present
