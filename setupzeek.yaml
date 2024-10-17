@@ -76,3 +76,11 @@
       path: /opt/zeek/etc/networks.cfg
       line: "{{ hostvars['localhost']['ansible_host'] }}/27"
     when: inventory_hostname in groups['fleet']
+
+  - name: add ssh keys to known_hosts on fleet/zeek server
+    template:
+      src: ./zeek_keys.j2
+      dest: /home/ansible/elastic_labs/zeek_keys.yaml
+      owner: ansible
+      group: ansible
+    when: inventory_hostname in groups['local']

@@ -1,0 +1,20 @@
+---
+- name: add ssh host keys to known_hosts
+  hosts: fleet
+  remote_user: root
+  tasks:
+    - name: add control node host key to known_hosts
+      shell: "ssh-keyscan {{ ansible_host }} >> /root/.ssh/known_hosts"
+      args:
+        executable: /bin/bash
+
+    - name: add node1 worker node host key to known_hosts
+      shell: "ssh-keyscan {{ hostvars['node1']['ansible_default_ipv4']['address'] }} >> /root/.ssh/known_hosts"
+      args:
+        executable: /bin/bash
+
+    - name: add node2 worker node host key to known_hosts
+      shell: "ssh-keyscan {{ hostvars['node2']['ansible_default_ipv4']['address'] }} >> /root/.ssh/known_hosts"
+      args:
+        executable: /bin/bash
+

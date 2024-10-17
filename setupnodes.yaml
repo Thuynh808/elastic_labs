@@ -1,4 +1,22 @@
 ---
+- name: create root ssh keys
+  hosts: localhost
+  tasks:
+  - name: Generate ansible SSH keypair with the default values and no passphrase
+    community.crypto.openssh_keypair:
+      path: /root/.ssh/id_rsa
+      owner: root
+      group: root
+
+- name: copy root public key to fleet/zeek
+  hosts: fleet
+  tasks:
+  - name: copy ansible public key
+    authorized_key:
+      user: root
+      state: present
+      key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+
 - name: create ansible user with privileges
   hosts: local nodes
   tasks:
@@ -55,4 +73,5 @@
         line: ask_pass=false
       - regex: '^remote_user'
         line: remote_user=ansible
+
 
