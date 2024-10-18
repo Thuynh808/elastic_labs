@@ -43,7 +43,7 @@
 
   - name: toggle off ask_pass
     lineinfile:
-      path: /home/ansible/elastic_labs/ansible.cfg
+      path: ./ansible.cfg
       regex: '^ask_pass'
       line: ask_pass=false
     when: inventory_hostname in groups['local']
