@@ -1,60 +1,39 @@
 ---
 - name: create root ssh keys
-  hosts: localhost
+  hosts: all 
   tasks:
-  - name: Generate ansible SSH keypair with the default values and no passphrase
+
+  - name: Ensure SSH root login is enabled
+    lineinfile:
+      path: /etc/ssh/sshd_config
+      state: present
+      regex: "{{ item.regex }}"
+      line: "{{ item.line }}"
+    loop:
+      - regex: '^PermitRootLogin'
+        line: 'PermitRootLogin yes'
+      - regex: '^PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+      - regex: '^PubkeyAuthentication'
+        line: 'PubkeyAuthentication yes'
+
+  - name: Restart SSH service
+    service:
+      name: sshd
+      state: restarted
+
+  - name: Generate root SSH keypair with the default values and no passphrase for control
     community.crypto.openssh_keypair:
       path: /root/.ssh/id_rsa
       owner: root
       group: root
+    when: inventory_hostname in groups['local']
 
-- name: copy root public key to fleet/zeek
-  hosts: fleet
-  tasks:
-  - name: copy ansible public key
+  - name: copy control root public key to nodes
     authorized_key:
       user: root
       state: present
       key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
-
-- name: create ansible user with privileges
-  hosts: local nodes
-  tasks:
-
-  - name: create ansible user
-    user:
-      name: ansible
-      password: $6$cGUd3oF/o6jAkKV6$Dchj80B.Nmy6F3Fol6gOO79aVoFcnwgyrNluhGfCA8dimEeQc9Kmm0TzDYwmALSdQKQfRPxOloe6UzKgMCqBD0
-      shell: /bin/bash
-    when: inventory_hostname in groups['nodes']
-
-  - name: give sudo privileges
-    copy:
-      content: "ansible ALL=(ALL) NOPASSWD: ALL\n"
-      dest: /etc/sudoers.d/ansible
-    when: inventory_hostname in groups['nodes']
-
-  - name: create .ssh directory for user ansible
-    file:
-      path: /home/ansible/.ssh
-      state: directory
-      owner: ansible
-      group: ansible
-      mode: '0700'
-    when: inventory_hostname in groups['local']
-
-  - name: Generate ansible SSH keypair with the default values and no passphrase
-    community.crypto.openssh_keypair:
-      path: /home/ansible/.ssh/id_rsa
-      owner: ansible
-      group: ansible
-    when: inventory_hostname in groups['local']
-
-  - name: copy ansible public key
-    authorized_key:
-      user: ansible
-      state: present
-      key: "{{ lookup('file', '/home/ansible/.ssh/id_rsa.pub') }}"
     when: inventory_hostname in groups['nodes']
 
   - name: generate /etc/hosts file with template
@@ -65,13 +44,6 @@
   - name: toggle off ask_pass
     lineinfile:
       path: /home/ansible/elastic_labs/ansible.cfg
-      regex: "{{ item.regex }}"
-      line: "{{ item.line }}"
+      regex: '^ask_pass'
+      line: ask_pass=false
     when: inventory_hostname in groups['local']
-    loop:
-      - regex: '^ask_pass'
-        line: ask_pass=false
-      - regex: '^remote_user'
-        line: remote_user=ansible
-
-

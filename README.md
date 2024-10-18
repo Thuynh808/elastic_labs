@@ -15,13 +15,6 @@
   ```bash
   dnf install -y git ansible-core
   ```
-- **Create `ansible` user on `control node` and set password:** <br><br>
-  ```bash
-  sudo useradd -m -s /bin/bash ansible
-  echo "ansible:password" | sudo chpasswd
-  echo "ansible ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/ansible
-  su - ansible
-  ```
 ### Installation
 To install and set up the project, follow these steps:
 
