@@ -69,7 +69,44 @@
       regex: "{{ item.regex }}"
       line: "{{ item.line }}"
     loop: "{{ elastic + kibana }}"
-
+  - name: create fleet server policy and agent policy
+    lineinfile:
+      path: /etc/kibana.kibana.yml
+      line: |
+        xpack.fleet.packages:
+          - name: fleet_server
+            version: latest
+          - name: elastic_agent
+            version: latest
+        xpack.fleet.agentPolicies:
+          - name: Fleet Server policy
+            id: fleet-server-policy
+            namespace: default
+            package_policies:
+              - name: fleet_server-1
+                package:
+                  name: fleet_server
+          - name: Agent policy 1
+            id: agent-policy-1
+            namespace: default
+            monitoring_enabled:
+              - logs
+              - metrics
+            package_policies:
+              - package:
+                  name: system
+                name: System Integration 1
+                id: preconfigured-system-1
+                inputs:
+                  system-system/metrics:
+                    enabled: true
+                    streams:
+                      '[system.core]':
+                        enabled: true
+                        vars:
+                          period: 20s
+                  system-winlog:
+                    enabled: false
   - name: reload systemd
     shell: 'systemctl daemon-reload'
   - name: restart services
