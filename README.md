@@ -31,13 +31,13 @@ To install and set up the project, follow these steps:
    ```bash
    ./initial-setup.sh
    ```
-5. **run timesync playbook:** <br><br>
-   ```bash
-   ansible-playbook timesync.yaml -vv
-   ```
 5. **install elasticsearch and kibana:** <br><br>
    ```bash
-   ansible-playbook elastic_kibana.yaml -vv
+   ansible-playbook elastic_kibana_install.yaml -vv
+   ```
+7. **config elasticsearch and kibana:** <br><br> 
+   ```bash
+   ansible-playbook elastic_kibana_config.yaml -vv
    ```
 5. **install and setup zeek on fleet server:** <br><br>
    ```bash

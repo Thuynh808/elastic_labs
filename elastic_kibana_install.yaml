@@ -1,0 +1,73 @@
+---
+
+- name: open port for fleet-server/agent
+  import_playbook: ./agent_port.yaml
+
+- name: setup elastic and kibana
+  hosts: localhost
+  vars:
+    packages:
+      - name: elasticsearch
+        description: elasticsearch-repo
+        baseurl: https://artifacts.elastic.co/packages/8.x/yum
+        gpgcheck: yes
+        gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        enabled: no
+      - name: kibana
+        description: kibana-repo
+        baseurl: https://artifacts.elastic.co/packages/8.x/yum
+        gpgcheck: yes
+        gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        enabled: no
+  tasks:
+  - name: import rpm key
+    rpm_key:
+      state: present
+      key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+  - name: create repos
+    yum_repository:
+      name: "{{ item.name }}"
+      description: "{{ item.description }}"
+      baseurl: "{{ item.baseurl }}"
+      enabled: "{{ item.enabled }}"
+      gpgcheck: "{{ item.gpgcheck }}"
+      gpgkey: "{{ item.gpgkey }}"
+      state: present
+    loop: "{{ packages }}"
+  - name: install packages
+    yum:
+      name: "{{ item.name }}"
+      state: present
+      enablerepo: "{{ item.name }}"
+    loop: "{{ packages }}"
+  - name: open firewall ports for services
+    firewalld:
+      port: "{{ item }}"
+      permanent: true
+      state: enabled
+      immediate: true
+    loop:
+      - 9200/tcp
+      - 9300/tcp
+      - 5601/tcp
+  - name: selinux port open
+    seport:
+      ports: "{{ item }}"
+      proto: tcp
+      setype: http_port_t
+      state: present
+    loop:
+      - 9200
+      - 9300
+      - 5601
+  - name: reload systemd
+    shell: 'systemctl daemon-reload'
+  - name: start and enable services
+    service:
+      name: "{{ item }}"
+      state: restarted
+      enabled: true
+    loop:
+      - elasticsearch
+      - kibana
+      - firewalld
