@@ -105,6 +105,10 @@
     shell: '/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana'
     register: enrollment_token
 
+  - name: enroll kibana 
+    shell: |
+      sudo /usr/share/kibana/bin/kibana-setup --enrollment-token  {{ enrollment_token.stdout_lines[0] }}
+  
   - name: enrollment token
     copy:
       content: "{{ enrollment_token.stdout_lines[0] }}\n"
