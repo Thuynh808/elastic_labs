@@ -1,9 +1,5 @@
 ---
-xpack.encryptedSavedObjects.encryptionKey: 5c008fd3976a7a1eb9fe17b32f182955
-xpack.reporting.encryptionKey: 7157599f43961a9f8009adb15483904e
-xpack.security.encryptionKey: 47708ed1a5541d7deb06c154292216d9
-
-xpack.encryptedSavedObjects.encryptionKey: 31c5449fdcf26e5c5c086d96bba5b358
-xpack.reporting.encryptionKey: f4571609bb3f1abf046e4b778cace836
-xpack.security.encryptionKey: 7b020e37fb7a8f09ceba7249ae17411b
+xpack.encryptedSavedObjects.encryptionKey: 34e2997a78d7dfc9e2ed97664be7deb7
+xpack.reporting.encryptionKey: 955e1ca0d22b609a64cb3288f30bc470
+xpack.security.encryptionKey: 9d89fb298fb138e926cf5cf508f515ab
 

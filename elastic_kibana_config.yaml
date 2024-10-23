@@ -71,7 +71,7 @@
     loop: "{{ elastic + kibana }}"
   - name: create fleet server policy and agent policy
     lineinfile:
-      path: /etc/kibana.kibana.yml
+      path: /etc/kibana/kibana.yml
       line: |
         xpack.fleet.packages:
           - name: fleet_server
