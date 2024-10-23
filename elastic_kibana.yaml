@@ -3,7 +3,7 @@
 - name: open port for fleet-server/agent
   import_playbook: ./agent_port.yaml
 
-- name: setup kibana
+- name: setup elastic and kibana
   hosts: localhost
   vars:
     packages:
@@ -93,15 +93,8 @@
       - path: /etc/elasticsearch/elasticsearch.yml
         regex: '^#http.port:'
         line: "http.port: 9200"
+
   tasks:
-  
-  - name: edit config files
-    lineinfile:
-      path: "{{ item.path }}"
-      regex: "{{ item.regex }}"
-      line: "{{ item.line }}"
-    loop: "{{ elastic + kibana }}"
-  
   - name: create elastic token for kibana
     shell: '/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana'
     register: enrollment_token
@@ -110,8 +103,8 @@
     copy:
       content: "{{ enrollment_token.stdout_lines[0] }}\n"
       dest: ./enrollment_token
-      owner: ansible
-      group: ansible
+      owner: root
+      group: root
 
   - name: reset password for elastic user
     shell: "/usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic --batch | sed 's/^New value: //g'"
@@ -121,8 +114,8 @@
     copy:
       content: "{{ password_result.stdout_lines[1] }}\n"
       dest: ./password_result
-      owner: ansible
-      group: ansible
+      owner: root
+      group: root
   
   - name: generate encryption keys for kibana
     shell: 'sudo /usr/share/kibana/bin/kibana-encryption-keys generate | tail -4 >> kibana_keys.yaml'
@@ -138,6 +131,13 @@
   - name: Add xpack.security.encryptionKey to Kibana keystore
     shell: |
         echo "{{ vars['xpack.security.encryptionKey'] }}" | sudo /usr/share/kibana/bin/kibana-keystore add xpack.security.encryptionKey --stdin
+
+  - name: edit config files
+    lineinfile:
+      path: "{{ item.path }}"
+      regex: "{{ item.regex }}"
+      line: "{{ item.line }}"
+    loop: "{{ elastic + kibana }}"
 
   - name: reload systemd
     shell: 'systemctl daemon-reload'
