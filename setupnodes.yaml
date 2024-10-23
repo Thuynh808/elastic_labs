@@ -12,8 +12,6 @@
     loop:
       - regex: '^PermitRootLogin'
         line: 'PermitRootLogin yes'
-      - regex: '^PasswordAuthentication'
-        line: 'PasswordAuthentication no'
       - regex: '^PubkeyAuthentication'
         line: 'PubkeyAuthentication yes'
 
