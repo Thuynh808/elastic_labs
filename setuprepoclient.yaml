@@ -24,37 +24,3 @@
       state: present
     when: ansible_os_family == 'RedHat'
 
-- name: install zeek on rhel 9 using centos 8 repo
-  hosts: all
-  tasks:
-  - name: install required dependencies
-    yum:
-      name:
-        - cmake
-        - make
-        - gcc
-        - gcc-c++
-        - flex
-        - bison
-        - libpcap-devel
-        - openssl-devel
-        - python3
-        - python3-devel
-        - swig
-        - zlib-devel
-      state: present
-
-  - name: add zeek repository
-    yum_repository:
-      name: zeek
-      description: Zeek
-      baseurl: https://download.opensuse.org/repositories/security:/zeek/CentOS_8/
-      gpgcheck: yes
-      gpgkey: https://download.opensuse.org/repositories/security:/zeek/CentOS_8/Release.key
-      enabled: yes
-
-  - name: install zeek
-    yum:
-      name: zeek
-      state: present
-

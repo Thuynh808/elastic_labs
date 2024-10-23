@@ -1,9 +1,0 @@
----
-- name: testing
-  hosts: local fleet
-  tasks:
-  - name: template
-    template:
-      src: add-agent.j2
-      dest: /home/ansible/add-agent.sh
-    when: inventory_hostname in groups['fleet']
