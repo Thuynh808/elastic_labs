@@ -1,6 +1,6 @@
 ---
 - name: open port for agents
-  hosts: agents
+  hosts: nodes
   tasks:
   - name: open port 8220 in firewalld for agents
     firewalld:
