@@ -30,18 +30,11 @@
     shell: |
       sudo /usr/share/kibana/bin/kibana-setup --enrollment-token  {{ enrollment_token.stdout_lines[0] }}
   
-  - name: enrollment token
-    copy:
-      content: "{{ enrollment_token.stdout_lines[0] }}\n"
-      dest: ./enrollment_token
-      owner: root
-      group: root
-
   - name: reset password for elastic user
     shell: "/usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic --batch | sed 's/^New value: //g'"
     register: password_result
 
-  - name: password_result
+  - name: create password_result file
     copy:
       content: "{{ password_result.stdout_lines[1] }}\n"
       dest: ./password_result
