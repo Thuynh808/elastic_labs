@@ -54,7 +54,7 @@
   - name: Add xpack.encryptedSavedObjects.encryptionKey to Kibana keystore
     shell: |
         echo "{{ vars['xpack.encryptedSavedObjects.encryptionKey'] }}" | sudo /usr/share/kibana/bin/kibana-keystore add xpack.encryptedSavedObjects.encryptionKey --stdin
-
+    
   - name: Add xpack.reporting.encryptionKey to Kibana keystore
     shell: |
         echo "{{ vars['xpack.reporting.encryptionKey'] }}" | sudo /usr/share/kibana/bin/kibana-keystore add xpack.reporting.encryptionKey --stdin
@@ -107,6 +107,12 @@
                           period: 20s
                   system-winlog:
                     enabled: false
+  - name: adjust kibana service file
+    lineinfile:
+      path: '/usr/lib/systemd/system/kibana.service'
+      regex: '^RestartSec='
+      line: RestartSec=5
+
   - name: reload systemd
     shell: 'systemctl daemon-reload'
   - name: restart services
