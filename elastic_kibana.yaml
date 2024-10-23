@@ -91,7 +91,7 @@
         line: "elasticsearch.username: \"elastic\""
       - path: /etc/kibana/kibana.yml
         regex: "^#elasticsearch.password:"
-        line: "^#elasticsearch.password: \"{{ pasword_result }}\""
+        line: "^#elasticsearch.password: \"{{ pasword_result.stdout_lines[1] }}\""
       - path: /etc/kibana/kibana.yml
         line: "xpack.security.enrollment.token: \"{{ enrollment_token.stdout_lines[0] }}\""
     elastic:
