@@ -149,11 +149,6 @@
       line: "{{ item.line }}"
     loop: "{{ elastic + kibana }}"
 
-  - name: add enrollment token to kibana config
-    lineinfile:
-      path: /etc/kibana/kibana.yml
-      line: "xpack.security.enrollment.token: \"{{ enrollment_token.stdout_lines[0] }}\""
-
   - name: reload systemd
     shell: 'systemctl daemon-reload'
   - name: restart services
