@@ -86,6 +86,14 @@
       - path: /etc/kibana/kibana.yml
         regex: '^#server.publicBaseUrl:'
         line: 'server.publicBaseUrl: "http://{{ ansible_default_ipv4.address }}:5601"'
+      - path: /etc/kibana/kibana.yml
+        regex: '^#elasticsearch.username:'
+        line: "elasticsearch.username: \"elastic\""
+      - path: /etc/kibana/kibana.yml
+        regex: "^#elasticsearch.password:"
+        line: "^#elasticsearch.password: \"{{ pasword_result }}\""
+      - path: /etc/kibana/kibana.yml
+        line: "xpack.security.enrollment.token: \"{{ enrollment_token.stdout_lines[0] }}\""
     elastic:
       - path: /etc/elasticsearch/elasticsearch.yml
         regex: '^#network.host:'
