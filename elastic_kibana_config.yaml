@@ -76,7 +76,7 @@
             id: fleet-server-policy
             namespace: default
             package_policies:
-              - name: fleet_server-1
+              - name: fleet-server-1
                 package:
                   name: fleet_server
           - name: Agent policy 1
