@@ -5,14 +5,14 @@
   - name: shutdown node1
     community.general.shutdown:  
       delay: 1
-    when: inventory_hostname in groups['attacker']
+    when: ansible_hostname == "node1"
 
   - name: shutdown node2
     community.general.shutdown:  
       delay: 4
-    when: inventory_hostname in groups['agents']
+    when: ansible_hostname == "node2"
 
   - name: shutdown
     community.general.shutdown:  
       delay: 7
-    when: inventory_hostname in groups['fleet']
+    when: ansible_hostname == "node3"
