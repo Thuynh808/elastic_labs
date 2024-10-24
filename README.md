@@ -39,22 +39,17 @@ To install and set up the project, follow these steps:
    ```bash
    ansible-playbook elastic_kibana_config.yaml -vv
    ```
-5. **install and setup zeek on fleet server:** <br><br>
+5. **install and setup zeek on nodes:** <br><br>
    ```bash
-   ansible-playbook setupzeek.yaml -vv
+   ansible-playbook zeek.yaml -vv
    ```
-6. **cat out enrollemnt_token:** <br><br>
+
+6. **cat out elastic password** <br><br>
    ```bash
-   cat enrollment_token password_result
+   cat password_result
    ```
 7. navigate with browser to control's ip on port 5601
-8. copy and paste enrollment token  
-9. **run verification_code executable:** <br><br>
-   ```bash
-   ./verification_code.sh
-   ```
-10. copy and paste verification code
-11. log in with user `elastic` password from password_result
+8. log in with user `elastic` password from password_result
 
 
     

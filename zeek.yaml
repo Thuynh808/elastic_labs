@@ -2,6 +2,7 @@
 - name: Set up Zeek Cluster
   hosts: nodes
   tasks:
+        
   - name: Install libpcap (required for packet capture)
     yum:
       name: "{{ item }}"
@@ -56,3 +57,49 @@
   - name: Source .bashrc to apply the new path
     shell: source ~/.bashrc
 
+  - name: edit node.cfg
+    lineinfile:
+      path: /usr/local/zeek/etc/node.cfg
+      regex: '^interface='
+      line: interface=enp0s3
+
+  - name: edit zeekctl.cfg
+    lineinfile:
+      path: /usr/local/zeek/etc/zeekctl.cfg
+      regex: "{{ item.regex }}"
+      line: "{{ item.line }}"
+    loop:
+      - regex: "'^MailConnectionSummary'"
+        line: "MailConnectionSummary = 0"
+      - regex: "'^MinDiskSpace'"
+        line: "MinDiskSpace = 0"
+      - regex: "'^MailHostUpDown'"
+        line: "MailHostUpDown = 0"
+
+  - name: run zeekctl deploy
+    shell: 'zeekctl deploy'
+
+  - name: create systemd service for zeek
+    copy:
+      content: |
+        [Unit]
+        Description=Zeek Network Security Monitor
+        After=network.target
+
+        [Service]
+        Type=forking
+        ExecStart=/usr/local/zeek/bin/zeekctl start
+        ExecStop=/usr/local/zeek/bin/zeekctl stop
+        ExecReload=/usr/local/zeek/bin/zeekctl deploy
+        Restart=on-failure
+        RestartSec=5
+
+        [Install]
+        WantedBy=multi-user.target
+      dest: /etc/systemd/system/zeek.service
+  
+  - name: start and enable zeek
+    service:
+      name: zeek.service
+      state: restarted
+      enabled: true

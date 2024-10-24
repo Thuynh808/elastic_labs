@@ -1,15 +1,15 @@
 localhost ansible_connection=local
 
 [local]
-### change to control node's IP, fqdn, and hostname
+# change to control node's IP, fqdn, and hostname
 localhost ansible_host=192.168.68.90 ansible_fqdn=control.streetrack.org ansible_hostname=control 
 
 [fleet]
-node1	ansible_host=192.168.68.91
+node1	ansible_host=192.168.68.91 # change to node1's IP
 
 [agents]
-node2	ansible_host=192.168.68.92
-node3	ansible_host=192.168.68.93
+node2	ansible_host=192.168.68.92 # change to node2's IP
+node3	ansible_host=192.168.68.93 # change to node3's IP
 
 [nodes:children]
 fleet
