@@ -98,8 +98,11 @@
   - name: enable zeek
     service:
       name: zeek.service
-      state: reloaded
+      state: stopped
       enabled: true
-      
+
+  - name: deploy zeek
+    shell: 'zeekctl deploy'
+    
   - name: start zeek
     shell: 'zeekctl start'
