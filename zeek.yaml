@@ -76,9 +76,6 @@
       - regex: "'^MailHostUpDown'"
         line: "MailHostUpDown = 0"
 
-  - name: run zeekctl deploy
-    shell: 'zeekctl deploy'
-
   - name: create systemd service for zeek
     copy:
       content: |
@@ -98,8 +95,11 @@
         WantedBy=multi-user.target
       dest: /etc/systemd/system/zeek.service
   
-  - name: start and enable zeek
+  - name: enable zeek
     service:
       name: zeek.service
-      state: restarted
+      state: reloaded
       enabled: true
+      
+  - name: start zeek
+    shell: 'zeekctl start'
