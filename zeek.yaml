@@ -62,6 +62,11 @@
       path: /usr/local/zeek/etc/node.cfg
       regex: '^interface='
       line: interface=enp0s3
+      
+  - name: edit local.zeek file
+    lineinfile:
+      path: /usr/local/zeek/share/zeek/site/local.zeek
+      line: '@load policy/tuning/json-logs.zeek'
 
   - name: edit zeekctl.cfg
     lineinfile:
