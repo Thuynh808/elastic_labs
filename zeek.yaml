@@ -69,11 +69,11 @@
       regex: "{{ item.regex }}"
       line: "{{ item.line }}"
     loop:
-      - regex: "'^MailConnectionSummary'"
+      - regex: '^MailConnectionSummary'
         line: "MailConnectionSummary = 0"
-      - regex: "'^MinDiskSpace'"
+      - regex: '^MinDiskSpace'
         line: "MinDiskSpace = 0"
-      - regex: "'^MailHostUpDown'"
+      - regex: '^MailHostUpDown'
         line: "MailHostUpDown = 0"
 
   - name: create systemd service for zeek
