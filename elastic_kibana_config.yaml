@@ -105,7 +105,7 @@
                           paths:
                             - /var/log/auth.log*
                             - /var/log/secure*
-                          preserve_original_event: false
+                          preserve_original_event: true
                           tags:
                             - system-auth
                       '[system.syslog]':
@@ -132,16 +132,14 @@
                     enabled: true
                     vars:
                       base_paths:
-                        - /var/log/bro/current
-                        - /opt/zeek/logs/current
-                        - /usr/local/var/spool/zeek
+                        - /usr/local/zeek/logs/current
                     streams:
                       '[zeek.connection]':
                         enabled: true
                         vars:
                           filenames:
                             - conn.log
-                          preserve_original_event: false
+                          preserve_original_event: true
                       '[zeek.dns]':
                         enabled: true
                         vars:
@@ -159,7 +157,7 @@
                         vars:
                           filenames:
                             - http.log
-                          preserve_original_event: false
+                          preserve_original_event: true
                       '[zeek.notice]':
                         enabled: true
                         vars:
