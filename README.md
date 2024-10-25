@@ -48,8 +48,16 @@ To install and set up the project, follow these steps:
    ```bash
    cat password_result
    ```
-7. navigate with browser to control's ip on port 5601
+7. navigate with browser to control's ip on port 5601<br><br>
+
 8. log in with user `elastic` password from password_result
+
+9. Add fleet server through ui<br><br>
+
+5. run enroll playbook
+   ```bash
+   ansible-playbook enroll_agents.yaml -vv
+   ```
 
 
     
