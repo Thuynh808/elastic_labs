@@ -100,7 +100,7 @@
                   system-logfile:
                     enabled: true
                     streams:
-                      system.auth:
+                      '[system.auth]':
                         enabled: true
                         vars:
                           paths:
@@ -109,7 +109,7 @@
                           preserve_original_event: false
                           tags:
                             - system-auth
-                      system.syslog:
+                      '[system.syslog]':
                         enabled: true
                         vars:
                           paths:
@@ -120,14 +120,14 @@
                   system-system/metrics:
                     enabled: true
                     streams:
-                      system.core:
+                      '[system.core]':
                         enabled: true
                         vars:
                           period: 10s
                           core.metrics:
                             - percentages
                           tags: []
-                      system.cpu:
+                      '[system.cpu]':
                         enabled: true
                         vars:
                           period: 10s
@@ -135,13 +135,13 @@
                             - percentages
                             - normalized_percentages
                           tags: []
-                      system.diskio:
+                      '[system.diskio]':
                         enabled: true
                         vars:
                           period: 10s
                           diskio.include_devices: []
                           tags: []
-                      system.filesystem:
+                      '[system.filesystem]':
                         enabled: true
                         vars:
                           period: 1m
@@ -150,23 +150,23 @@
                           processors: |
                             - drop_event.when.regexp:
                                 system.filesystem.mount_point: ^/(sys|cgroup|proc|dev|etc|host|lib|snap)($|/)
-                      system.load:
+                      '[system.load]':
                         enabled: true
                         vars:
                           period: 10s
                           tags: []
-                      system.memory:
+                      '[system.memory]':
                         enabled: true
                         vars:
                           period: 10s
                           tags: []
-                      system.network:
+                      '[system.network]':
                         enabled: true
                         vars:
                           period: 10s
                           network.interfaces: []
                           tags: []
-                      system.process:
+                      '[system.process]':
                         enabled: true
                         vars:
                           period: 10s
@@ -179,17 +179,17 @@
                           processes:
                             - .*
                           tags: []
-                      system.process.summary:
+                      '[system.process.summary]':
                         enabled: true
                         vars:
                           period: 10s
                           tags: []
-                      system.socket_summary:
+                      '[system.socket_summary]':
                         enabled: true
                         vars:
                           period: 10s
                           tags: []
-                      system.uptime:
+                      '[system.uptime]':
                         enabled: true
                         vars:
                           period: 10s
