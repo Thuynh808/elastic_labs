@@ -1,0 +1,22 @@
+---
+- name: enroll agents
+  hosts: agents
+  tasks:
+  - name: retrieve enrollment_api_keys
+    shell: |
+      curl -X GET "{{ hostvars['localhost']['ansible_host'] }}:5601/api/fleet/enrollment_api_keys" -H "kbn-xsrf: true" -H "Content-Type: application/json" -u elastic:{{ lookup('file', '/root/elastic_labs/password_result') }}
+    register: output
+  - name: extract output
+    set_fact:
+      parsed_output: "{{ output.stdout_lines[0] | from_json }}"
+  - name: extract api key
+    set_fact:
+      api_key: "{{ parsed_output.list[1].api_key }}"
+
+  - name: enroll agents
+    shell: |
+      curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.15.3-linux-x86_64.tar.gz
+      tar xzvf elastic-agent-8.15.3-linux-x86_64.tar.gz
+      cd elastic-agent-8.15.3-linux-x86_64
+      echo "y" | sudo ./elastic-agent install --url=https://{{ hostvars['node1']['ansible_host'] }}:8220 --enrollment-token={{ api_key }} --insecure
+
