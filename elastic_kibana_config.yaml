@@ -173,6 +173,13 @@
                             - weird.log
                           preserve_original_event: false
 
+        xpack.fleet.fleetServerHosts:
+            - id: fleet-server-host-1
+              name: Fleet Server Host 1
+              host_urls:
+                - https://{{ hostvars['node1']['ansible_host'] }}:8220
+              is_default: true
+
   - name: adjust kibana service file
     lineinfile:
       path: '/usr/lib/systemd/system/kibana.service'
