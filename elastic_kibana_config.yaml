@@ -116,9 +116,6 @@
                         - /var/log/syslog*
                         - /var/log/system*
                       preserve_original_event: false
-                      ignore_older: 72h
-                      exclude_files:
-                        - "\.gz$"
               system-system/metrics:
                 enabled: true
                 streams:
