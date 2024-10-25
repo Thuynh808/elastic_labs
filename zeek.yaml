@@ -61,7 +61,7 @@
     lineinfile:
       path: /usr/local/zeek/etc/node.cfg
       regex: '^interface='
-      line: interface=enp0s3
+      line: interface={{ ansible_default_ipv4['interface'] }}
       
   - name: edit local.zeek file
     lineinfile:
