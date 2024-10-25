@@ -123,6 +123,55 @@
                         enabled: true
                         vars:
                           period: 20s
+              - package:
+                  name: zeek
+                name: zeek integration 1
+                id: preconfigured-zeek-1
+                inputs:
+                  zeek-logfile:
+                    enabled: true
+                    vars:
+                      base_paths:
+                        - /var/log/bro/current
+                        - /opt/zeek/logs/current
+                        - /usr/local/var/spool/zeek
+                    streams:
+                      '[zeek.connection]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - conn.log
+                          preserve_original_event: false
+                      '[zeek.dns]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - dns.log
+                          preserve_original_event: false
+                      '[zeek.files]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - files.log
+                          preserve_original_event: false
+                      '[zeek.http]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - http.log
+                          preserve_original_event: false
+                      '[zeek.notice]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - notice.log
+                          preserve_original_event: false
+                      '[zeek.weird]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - weird.log
+                          preserve_original_event: false
 
   - name: adjust kibana service file
     lineinfile:
