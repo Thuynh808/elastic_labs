@@ -62,6 +62,7 @@
       regex: "{{ item.regex }}"
       line: "{{ item.line }}"
     loop: "{{ elastic + kibana }}"
+    
   - name: create fleet server policy and agent policy
     lineinfile:
       path: /etc/kibana/kibana.yml
@@ -85,21 +86,117 @@
             monitoring_enabled:
               - logs
               - metrics
-            package_policies:
-              - package:
-                  name: system
-                name: System Integration 1
-                id: preconfigured-system-1
-                inputs:
-                  system-system/metrics:
+        xpack.fleet.packagePolicies:
+          - policy_ids:
+              - agent-policy-1
+            package:
+              name: system
+              version: 1.61.1
+            name: system-1
+            description: ""
+            namespace: default
+            inputs:
+              system-logfile:
+                enabled: true
+                streams:
+                  system.auth:
                     enabled: true
-                    streams:
-                      '[system.core]':
-                        enabled: true
-                        vars:
-                          period: 20s
-                  system-winlog:
-                    enabled: false
+                    vars:
+                      paths:
+                        - /var/log/auth.log*
+                        - /var/log/secure*
+                      preserve_original_event: false
+                      tags:
+                        - system-auth
+                  system.syslog:
+                    enabled: true
+                    vars:
+                      paths:
+                        - /var/log/messages*
+                        - /var/log/syslog*
+                        - /var/log/system*
+                      preserve_original_event: false
+                      ignore_older: 72h
+                      exclude_files:
+                        - "\.gz$"
+              system-system/metrics:
+                enabled: true
+                streams:
+                  system.core:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      core.metrics:
+                        - percentages
+                      tags: []
+                  system.cpu:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      cpu.metrics:
+                        - percentages
+                        - normalized_percentages
+                      tags: []
+                  system.diskio:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      diskio.include_devices: []
+                      tags: []
+                  system.filesystem:
+                    enabled: true
+                    vars:
+                      period: 1m
+                      filesystem.ignore_types: []
+                      tags: []
+                      processors: |
+                        - drop_event.when.regexp:
+                            system.filesystem.mount_point: ^/(sys|cgroup|proc|dev|etc|host|lib|snap)($|/)
+                  system.load:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      tags: []
+                  system.memory:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      tags: []
+                  system.network:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      network.interfaces: []
+                      tags: []
+                  system.process:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      process.include_top_n.by_cpu: 5
+                      process.include_top_n.by_memory: 5
+                      process.cmdline.cache.enabled: true
+                      process.cgroups.enabled: false
+                      process.env.whitelist: []
+                      process.include_cpu_ticks: false
+                      processes:
+                        - .*
+                      tags: []
+                  system.process.summary:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      tags: []
+                  system.socket_summary:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      tags: []
+                  system.uptime:
+                    enabled: true
+                    vars:
+                      period: 10s
+                      tags: []
+
   - name: adjust kibana service file
     lineinfile:
       path: '/usr/lib/systemd/system/kibana.service'
