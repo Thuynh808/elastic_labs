@@ -94,6 +94,7 @@
               - package:
                   name: system
                 name: system integration 1
+                namespace: default
                 id: preconfigured-system-1
                 inputs:
                   system-logfile:
