@@ -20,7 +20,7 @@ To install and set up the project, follow these steps:
 
 1. **Clone the repository:** <br><br>
    ```bash
-   git clone -b dev https://github.com/Thuynh808/elastic_labs
+   git clone https://github.com/Thuynh808/elastic_labs
    cd elastic_labs
    ```
 4. **Configure inventory `ansible_host`:** <br><br>
