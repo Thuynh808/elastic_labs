@@ -1,6 +1,6 @@
 ---
 - name: shutdown nodes
-  hosts: node1 node2 node3
+  hosts: node1 node2
   tasks:
   - name: shutdown node1
     community.general.shutdown:  
@@ -12,7 +12,3 @@
       delay: 4
     when: ansible_hostname == "node2"
 
-  - name: shutdown
-    community.general.shutdown:  
-      delay: 7
-    when: ansible_hostname == "node3"

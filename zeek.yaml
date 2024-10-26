@@ -1,6 +1,6 @@
 ---
 - name: Set up Zeek Cluster
-  hosts: nodes
+  hosts: fleet
   tasks:
         
   - name: Install libpcap (required for packet capture)

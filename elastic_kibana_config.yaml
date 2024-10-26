@@ -70,8 +70,6 @@
         xpack.fleet.packages:
           - name: fleet_server
             version: latest
-          - name: elastic_agent
-            version: latest
           - name: system
             version: latest
           - name: zeek
@@ -80,52 +78,16 @@
           - name: Fleet Server policy
             id: fleet-server-policy
             namespace: default
-            package_policies:
-              - name: fleet-server-1
-                package:
-                  name: fleet_server
-          - name: Agent policy 1
-            id: agent-policy-1
-            namespace: default
             monitoring_enabled:
               - logs
               - metrics
             package_policies:
-              - package:
-                  name: system
-                name: system integration 1
-                id: preconfigured-system-1
-                inputs:
-                  system-logfile:
-                    enabled: true
-                    streams:
-                      '[system.auth]':
-                        enabled: true
-                        vars:
-                          paths:
-                            - /var/log/auth.log*
-                            - /var/log/secure*
-                          preserve_original_event: true
-                          tags:
-                            - system-auth
-                      '[system.syslog]':
-                        enabled: true
-                        vars:
-                          paths:
-                            - /var/log/messages*
-                            - /var/log/syslog*
-                            - /var/log/system*
-                          preserve_original_event: false
-                  system-system/metrics:
-                    enabled: true
-                    streams:
-                      '[system.core]':
-                        enabled: true
-                        vars:
-                          period: 20s
+              - name: fleet-server-1
+                package:
+                  name: fleet_server
               - package:
                   name: zeek
-                name: zeek integration 1
+                name: zeek-integration-1
                 id: preconfigured-zeek-1
                 inputs:
                   zeek-logfile:
@@ -170,6 +132,45 @@
                           filenames:
                             - weird.log
                           preserve_original_event: false
+          - name: Agent policy 1
+            id: agent-policy-1
+            namespace: default
+            monitoring_enabled:
+              - logs
+              - metrics
+            package_policies:
+              - package:
+                  name: system
+                name: system-integration-1
+                id: preconfigured-system-1
+                inputs:
+                  system-logfile:
+                    enabled: true
+                    streams:
+                      '[system.auth]':
+                        enabled: true
+                        vars:
+                          paths:
+                            - /var/log/auth.log*
+                            - /var/log/secure*
+                          preserve_original_event: true
+                          tags:
+                            - system-auth
+                      '[system.syslog]':
+                        enabled: true
+                        vars:
+                          paths:
+                            - /var/log/messages*
+                            - /var/log/syslog*
+                            - /var/log/system*
+                          preserve_original_event: false
+                  system-system/metrics:
+                    enabled: true
+                    streams:
+                      '[system.core]':
+                        enabled: true
+                        vars:
+                          period: 20s
 
         xpack.fleet.fleetServerHosts:
             - id: fleet-server-host-1
