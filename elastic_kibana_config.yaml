@@ -74,6 +74,8 @@
             version: latest
           - name: zeek
             version: latest
+          - name: winlog
+            version: latest
         xpack.fleet.agentPolicies:
           - name: Fleet Server policy
             id: fleet-server-policy
@@ -141,7 +143,7 @@
             package_policies:
               - package:
                   name: system
-                name: system-integration-1
+                name: rhel-system-integration
                 id: preconfigured-system-1
                 inputs:
                   system-logfile:
@@ -153,7 +155,7 @@
                           paths:
                             - /var/log/auth.log*
                             - /var/log/secure*
-                          preserve_original_event: true
+                          preserve_original_event: false
                           tags:
                             - system-auth
                       '[system.syslog]':
@@ -171,13 +173,27 @@
                         enabled: true
                         vars:
                           period: 20s
+              - package:
+                  name: winlog
+                name: winlog-sysmon
+                id: preconfigured-winlog-sysmon
+                inputs:
+                  winlogs-winlog:
+                    enabled: true
+                    streams:
+                      winlog.winlogs:
+                        enabled: true
+                        vars:
+                          channel: "Microsoft-Windows-Sysmon/Operational"
+                          data_stream.dataset: "winlog.winlog"
+                          preserve_original_event: false
 
-        xpack.fleet.fleetServerHosts:
-            - id: fleet-server-host-1
-              name: Fleet Server Host 1
-              host_urls:
-                - https://{{ hostvars['node1']['ansible_host'] }}:8220
-              is_default: true
+                xpack.fleet.fleetServerHosts:
+                    - id: fleet-server-host-1
+                      name: Fleet Server Host 1
+                      host_urls:
+                        - https://{{ hostvars['node1']['ansible_host'] }}:8220
+                      is_default: true
 
   - name: adjust kibana service file
     lineinfile:
