@@ -9,7 +9,6 @@ node1	ansible_host=192.168.68.91 # change to node1's IP
 
 [agents]
 node2	ansible_host=192.168.68.92 # change to node2's IP
-node3	ansible_host=192.168.68.93 # change to node3's IP
 
 [nodes:children]
 fleet
