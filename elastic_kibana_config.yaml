@@ -75,7 +75,7 @@
           - name: zeek
             version: latest
           - name: winlog
-            version: latest
+            version: "2.1.2"
         xpack.fleet.agentPolicies:
           - name: Fleet Server policy
             id: fleet-server-policy
@@ -178,22 +178,21 @@
                 name: winlog-sysmon
                 id: preconfigured-winlog-sysmon
                 inputs:
-                  winlogs-winlog:
+                  - type: winlogs-winlog
                     enabled: true
                     streams:
-                      '[winlog.winlogs]':
+                      - id: winlog.winlogs
                         enabled: true
                         vars:
                           channel: "Microsoft-Windows-Sysmon/Operational"
-                          data_stream.dataset: "winlog.winlog"
                           preserve_original_event: false
 
-                xpack.fleet.fleetServerHosts:
-                    - id: fleet-server-host-1
-                      name: Fleet Server Host 1
-                      host_urls:
-                        - https://{{ hostvars['node1']['ansible_host'] }}:8220
-                      is_default: true
+        xpack.fleet.fleetServerHosts:
+            - id: fleet-server-host-1
+              name: Fleet Server Host 1
+              host_urls:
+                - https://{{ hostvars['node1']['ansible_host'] }}:8220
+              is_default: true
 
   - name: adjust kibana service file
     lineinfile:
