@@ -2,13 +2,6 @@
 - name: add sysmon integration to policy
   hosts: localhost
   tasks:
-  - name: enable fleet api
-    lineinfile:
-      path: /etc/kibana/kibana.yml
-      line: "{{ item }}"
-    loop:
-      - "xpack.fleet.enabled: true"
-
   - name: add sysmon integration
     shell: |
       curl --insecure --request POST \
