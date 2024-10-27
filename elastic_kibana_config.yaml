@@ -174,30 +174,12 @@
                         vars:
                           period: 20s
 
-              - package:
-                  name: winlog
-                name: winlog-sysmon
-                id: preconfigured-winlog-sysmon
-                inputs:
-                  - type: winlog
-                    enabled: true
-                    streams:
-                      - enabled: true
-                        data_stream:
-                          dataset: winlog.sysmon
-                          type: logs
-                        vars:
-                          - name: channel
-                            value: "Microsoft-Windows-Sysmon/Operational"
-                          - name: preserve_original_event
-                            value: false
-
         xpack.fleet.fleetServerHosts:
-            - id: fleet-server-host-1
-              name: Fleet Server Host 1
-              host_urls:
-                - https://{{ hostvars['node1']['ansible_host'] }}:8220
-              is_default: true
+          - id: fleet-server-host-1
+            name: Fleet Server Host 1
+            host_urls:
+              - https://{{ hostvars['node1']['ansible_host'] }}:8220
+            is_default: true
 
   - name: retrieve enrollment_api_keys
     shell: |
