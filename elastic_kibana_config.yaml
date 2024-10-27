@@ -173,26 +173,6 @@
                         enabled: true
                         vars:
                           period: 20s
-              - package:
-                  name: winlog
-                name: winlog-sysmon
-                id: preconfigured-winlog-sysmon
-                inputs:
-                  - type: winlog
-                    enabled: true
-                    streams:
-                      '[winlog.winlogs]':
-                        enabled: true
-                        data_stream:
-                          dataset: "winlog.winlog"
-                          type: logs
-                        vars:
-                          - name: channel
-                            value: "Microsoft-Windows-Sysmon/Operational"
-                          - name: preserve_original_event
-                            value: false
-                      system-winlog:
-                        enabled: true
 
         xpack.fleet.fleetServerHosts:
             - id: fleet-server-host-1
