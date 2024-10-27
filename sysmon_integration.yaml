@@ -2,24 +2,20 @@
 - name: add sysmon integration to policy
   hosts: localhost
   tasks:
-  - name: retrieve enrollment_api_keys
-    shell: |
-      curl -X GET "{{ hostvars['localhost']['ansible_host'] }}:5601/api/fleet/enrollment_api_keys" -H "kbn-xsrf: true" -H "Content-Type: application/json" -u elastic:{{ lookup('file', '/root/elastic_labs/password_result') }}
-    register: output
-  - name: extract output
-    set_fact:
-      parsed_output: "{{ output.stdout_lines[0] | from_json }}"
-  - name: extract api key
-    set_fact:
-      api_key: "{{ parsed_output.list[1].api_key }}"
+  - name: enable fleet api
+    lineinfile:
+      path: /etc/kibana/kibana.yml
+      line: "{{ item }}"
+    loop:
+      - "xpack.fleet.enabled: true"
 
   - name: add sysmon integration
     shell: |
-      curl --request POST \
-        --url "https://{{ hostvars['localhost']['inventory_host'] }}:5601/api/fleet/package_policies" \
-        --header 'Authorization: ApiKey {{ api_key }}' \
+      curl --insecure --request POST \
+        --url "http://{{ hostvars['localhost']['ansible_host'] }}:5601/api/fleet/package_policies" \
         --header 'Content-Type: application/json' \
-        --header 'kbn-xsrf: xx' \
+        --header 'kbn-xsrf: true' \
+        --user elastic:{{ lookup('file', '/root/elastic_labs/password_result') }} \
         --data '{
         "policy_ids": [
           "agent-policy-1"

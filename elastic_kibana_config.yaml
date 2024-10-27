@@ -63,6 +63,11 @@
       line: "{{ item.line }}"
     loop: "{{ elastic + kibana }}"
     
+  - name: enable fleet api
+    lineinfile:
+      path: /etc/kibana/kibana.yml
+      line: "xpack.fleet.enabled: true"
+
   - name: create fleet server policy and agent policy
     lineinfile:
       path: /etc/kibana/kibana.yml
@@ -180,6 +185,42 @@
             host_urls:
               - https://{{ hostvars['node1']['ansible_host'] }}:8220
             is_default: true
+
+
+  - name: add sysmon integration
+    shell: |
+      curl --insecure --request POST \
+        --url "http://{{ hostvars['localhost']['ansible_host'] }}:5601/api/fleet/package_policies" \
+        --header 'Content-Type: application/json' \
+        --header 'kbn-xsrf: true' \
+        --user elastic:{{ lookup('file', '/root/elastic_labs/password_result') }} \
+        --data '{
+        "policy_ids": [
+          "agent-policy-1"
+        ],
+        "package": {
+          "name": "winlog",
+          "version": "2.1.2"
+        },
+        "name": "windows-sysmon",
+        "inputs": {
+          "winlogs-winlog": {
+            "enabled": true,
+            "streams": {
+              "winlog.winlogs": {
+                "enabled": true,
+                "vars": {
+                  "channel": "Microsoft-Windows-Sysmon/Operational",
+                  "data_stream.dataset": "winlog.winlog",
+                  "preserve_original_event": false,
+                  "ignore_older": "72h"
+                }
+              }
+            }
+          }
+        }
+      }'
+
 
   - name: adjust kibana service file
     lineinfile:
