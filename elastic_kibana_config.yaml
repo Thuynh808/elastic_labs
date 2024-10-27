@@ -181,7 +181,7 @@
                   winlogs-winlog:
                     enabled: true
                     streams:
-                      winlog.winlogs:
+                      '[winlog.winlogs:]'
                         enabled: true
                         vars:
                           channel: "Microsoft-Windows-Sysmon/Operational"
