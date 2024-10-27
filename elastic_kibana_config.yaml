@@ -178,7 +178,7 @@
                 name: winlog-sysmon
                 id: preconfigured-winlog-sysmon
                 inputs:
-                    type: winlog
+                  - type: winlog
                     streams:
                       - id: winlog-winlog.winlogs
                         enabled: true
