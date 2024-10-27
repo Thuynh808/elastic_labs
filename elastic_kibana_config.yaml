@@ -185,11 +185,11 @@
                         enabled: true
                         vars:
                           - name: channel
-                              value: "Microsoft-Windows-Sysmon/Operational"
+                            value: "Microsoft-Windows-Sysmon/Operational"
                           - name: data_stream.dataset
-                              value: "winlog.winlog"
+                            value: "winlog.winlog"
                           - name: preserve_original_event
-                              value: false
+                            value: false
 
         xpack.fleet.fleetServerHosts:
             - id: fleet-server-host-1
