@@ -54,6 +54,10 @@ To install and set up the project, follow these steps:
 
 9. Add fleet server through ui<br><br>
 
+8. run sysmon integration playbook<br><br>
+   ```bash
+   ansible-playbook sysmon_integration.yaml -vv
+   ```
 5. run enroll playbook
    ```bash
    ansible-playbook enroll_agents.yaml -vv
