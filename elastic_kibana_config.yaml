@@ -180,10 +180,12 @@
                 id: preconfigured-winlog-sysmon
                 inputs:
                   - type: winlog
+                    enabled: true
                     streams:
-                      - enabled: true
+                      - id: sysmon-logs
+                        enabled: true
                         data_stream:
-                          dataset: winlog.winlog
+                          dataset: winlog.sysmon
                           type: logs
                         vars:
                           - name: channel
