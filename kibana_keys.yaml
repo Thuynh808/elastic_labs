@@ -1,1 +1,5 @@
 ---
+xpack.encryptedSavedObjects.encryptionKey: f2a4160e3df39a71e9037bcedc1611e0
+xpack.reporting.encryptionKey: 83f7968be0071849633e3d87a209ad6c
+xpack.security.encryptionKey: 7c38d0f1802fa1d9290b4c8dd6409ec0
+

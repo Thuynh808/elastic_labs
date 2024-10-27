@@ -178,10 +178,10 @@
                 name: winlog-sysmon
                 id: preconfigured-winlog-sysmon
                 inputs:
-                  winlogs-winlog:
+                  - type: winlogs-winlog
                     enabled: true
                     streams:
-                      - id: winlog.winlogs
+                      '[winlog.winlogs]':
                         enabled: true
                         vars:
                           channel: "Microsoft-Windows-Sysmon/Operational"
