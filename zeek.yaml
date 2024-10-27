@@ -3,7 +3,7 @@
   hosts: fleet
   tasks:
         
-  - name: Install libpcap (required for packet capture)
+  - name: install dependencies (required for packet capture)
     yum:
       name: "{{ item }}"
       state: present
