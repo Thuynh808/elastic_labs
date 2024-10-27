@@ -182,8 +182,7 @@
                   - type: winlog
                     enabled: true
                     streams:
-                      - id: sysmon-logs
-                        enabled: true
+                      - enabled: true
                         data_stream:
                           dataset: winlog.sysmon
                           type: logs
