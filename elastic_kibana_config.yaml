@@ -186,8 +186,10 @@
                           dataset: winlog.winlog
                           type: logs
                         vars:
-                          - channel: "Microsoft-Windows-Sysmon/Operational"
-                          - preserve_original_event: false
+                          - name: channel
+                            value: "Microsoft-Windows-Sysmon/Operational"
+                          - name: preserve_original_event
+                            value: false
 
         xpack.fleet.fleetServerHosts:
             - id: fleet-server-host-1
