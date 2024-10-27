@@ -173,14 +173,15 @@
                         enabled: true
                         vars:
                           period: 20s
-              - package:
+
+              - name: winlog-sysmon
+                package:
                   name: winlog
-                name: winlog-sysmon
                 id: preconfigured-winlog-sysmon
                 inputs:
                   - type: winlog
                     streams:
-                        enabled: true
+                      - enabled: true
                         data_stream:
                           dataset: winlog.winlog
                           type: logs
