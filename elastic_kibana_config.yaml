@@ -174,9 +174,9 @@
                         vars:
                           period: 20s
 
-              - name: winlog-sysmon
-                package:
+              - package:
                   name: winlog
+                name: winlog-sysmon
                 id: preconfigured-winlog-sysmon
                 inputs:
                   - type: winlog
