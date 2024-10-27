@@ -178,13 +178,14 @@
                 name: winlog-sysmon
                 id: preconfigured-winlog-sysmon
                 inputs:
-                  - type: winlogs-winlog
+                  winlogs-winlog:
                     enabled: true
                     streams:
                       - id: winlog.winlogs
                         enabled: true
                         vars:
                           channel: "Microsoft-Windows-Sysmon/Operational"
+                          data_stream.dataset: "winlog.winlog"
                           preserve_original_event: false
 
         xpack.fleet.fleetServerHosts:
