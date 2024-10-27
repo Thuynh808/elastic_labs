@@ -181,7 +181,7 @@
                   - type: winlog
                     enabled: true
                     streams:
-                      - id: winlog-sysmon-stream
+                      '[winlog.winlogs]':
                         enabled: true
                         data_stream:
                           dataset: "winlog.winlog"
@@ -191,6 +191,8 @@
                             value: "Microsoft-Windows-Sysmon/Operational"
                           - name: preserve_original_event
                             value: false
+                      system-winlog:
+                        enabled: true
 
         xpack.fleet.fleetServerHosts:
             - id: fleet-server-host-1
