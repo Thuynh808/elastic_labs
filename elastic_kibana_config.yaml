@@ -181,7 +181,7 @@
                   - type: winlogs-winlog
                     enabled: true
                     streams:
-                      '[winlog.winlogs]':
+                      - id: winlog.winlogs
                         enabled: true
                         vars:
                           - name: channel
