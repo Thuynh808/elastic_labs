@@ -181,7 +181,7 @@
                   - type: winlog
                     enabled: true
                     streams:
-                      - id: winlog.winlogs
+                      - id: winlog-winlogs
                         enabled: true
                         data_stream:
                           dataset: "winlog.winlog"
