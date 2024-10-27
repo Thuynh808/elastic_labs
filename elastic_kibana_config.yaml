@@ -178,16 +178,17 @@
                 name: winlog-sysmon
                 id: preconfigured-winlog-sysmon
                 inputs:
-                  - type: winlogs-winlog
+                  - type: winlog
                     enabled: true
                     streams:
                       - id: winlog.winlogs
                         enabled: true
+                        data_stream:
+                          dataset: "winlog.winlog"
+                          type: logs
                         vars:
                           - name: channel
                             value: "Microsoft-Windows-Sysmon/Operational"
-                          - name: data_stream.dataset
-                            value: "winlog.winlog"
                           - name: preserve_original_event
                             value: false
 
