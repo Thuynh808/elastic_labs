@@ -180,7 +180,6 @@
                 inputs:
                   - type: winlog
                     streams:
-                      - id: winlog-winlog.winlogs
                         enabled: true
                         data_stream:
                           dataset: winlog.winlog
