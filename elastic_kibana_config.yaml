@@ -181,12 +181,12 @@
                   - type: winlogs-winlog
                     enabled: true
                     streams:
-                      '[winlog.winlogs]':
-                        enabled: true
-                        vars:
-                          channel: "Microsoft-Windows-Sysmon/Operational"
-                          data_stream.dataset: "winlog.winlog"
-                          preserve_original_event: false
+                      - '[winlog.winlogs]':
+                          enabled: true
+                          vars:
+                            - channel: "Microsoft-Windows-Sysmon/Operational"
+                            - data_stream.dataset: "winlog.winlog"
+                            - preserve_original_event: false
 
         xpack.fleet.fleetServerHosts:
             - id: fleet-server-host-1
