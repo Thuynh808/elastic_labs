@@ -12,6 +12,7 @@
       - openssl
       - zlib
       - python3
+      - tar
 
   - name: Open Zeek ports (47760-47762)
     firewalld:
