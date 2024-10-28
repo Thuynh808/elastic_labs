@@ -1,7 +1,7 @@
 ---
 
-- name: open port for fleet-server/agent
-  import_playbook: ./agent_port.yaml
+- name: open port for fleet server
+  import_playbook: ./fleet_port.yaml
 
 - name: setup elastic and kibana
   hosts: localhost
