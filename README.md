@@ -53,9 +53,9 @@ To install and set up the project, follow these steps:
    ```
 8. **log in with user `elastic` password from `password_result`** <br><br>
 
-8. **run sysmon integration playbook** <br><br>
+8. **run windows integration playbook** <br><br>
    ```bash
-   ansible-playbook sysmon_integration.yaml -vv
+   ansible-playbook windows_integration.yaml -vv
    ```
 9. **Add fleet server through ui** <br><br>
 
