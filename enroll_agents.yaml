@@ -12,33 +12,14 @@
   - name: extract api key
     set_fact:
       api_key: "{{ parsed_output.list[1].api_key }}"
-  - name: check if elastic agent is installed
-    stat:
-      path: /usr/bin/elastic-agent
-    register: elastic_agent_installed
-  - name: download elastic agent
+  - name: enroll agents
     shell: "{{ item }}"
     loop:
       - curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.15.3-linux-x86_64.tar.gz
-      - tar xzvf elastic-agent-8.15.3-linux-x86_64.tar.gz
-    when: not elastic_agent_installed.stat.exists
-  
-  
-  
-   - cd elastic-agent-8.15.3-linux-x86_64
-        - "echo 'Y' | sudo ./elastic-agent install --url=http://{{ hostvars['node1']['ansible_host'] }}:8220 --enrollment-token={{ api_key }} --insecure"
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  - name: output enrollment response
-    debug:
-      var: enrollment_response
+      - tar -xzvf elastic-agent-8.15.3-linux-x86_64.tar.gz
+      - cd elastic-agent-8.15.3-linux-x86_64
+      - "echo 'y' | sudo ./elastic-agent install --url=http://{{ hostvars['node1']['ansible_host'] }}:8220 --enrollment-token={{ api_key }} --insecure"
+
   - name: start elastic Agent
     systemd:
       name: elastic-agent
