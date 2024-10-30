@@ -134,6 +134,18 @@
                           filenames:
                             - weird.log
                           preserve_original_event: false
+                      '[zeek.ssh]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - ssh.log
+                          preserve_original_event: false
+                      '[zeek.rdp]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - rdp.log
+                          preserve_original_event: false
           - name: Agent policy 1
             id: agent-policy-1
             namespace: default
@@ -141,6 +153,65 @@
               - logs
               - metrics
             package_policies:
+              - package:
+                  name: zeek
+                name: zeek-integration-2
+                id: preconfigured-zeek-2
+                inputs:
+                  zeek-logfile:
+                    enabled: true
+                    vars:
+                      base_paths:
+                        - /usr/local/zeek/logs/current
+                    streams:
+                      '[zeek.connection]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - conn.log
+                          preserve_original_event: true
+                      '[zeek.dns]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - dns.log
+                          preserve_original_event: false
+                      '[zeek.files]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - files.log
+                          preserve_original_event: false
+                      '[zeek.http]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - http.log
+                          preserve_original_event: true
+                      '[zeek.notice]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - notice.log
+                          preserve_original_event: false
+                      '[zeek.weird]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - weird.log
+                          preserve_original_event: false
+                      '[zeek.ssh]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - ssh.log
+                          preserve_original_event: false
+                      '[zeek.rdp]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - rdp.log
+                          preserve_original_event: false
               - package:
                   name: system
                 name: rhel-system-integration

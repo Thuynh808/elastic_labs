@@ -1,6 +1,6 @@
 ---
 - name: Set up Zeek Cluster
-  hosts: fleet
+  hosts: node1 node2
   tasks:
         
   - name: install dependencies (required for packet capture)
