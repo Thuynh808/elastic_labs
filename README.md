@@ -63,6 +63,6 @@ To install and set up the project, follow these steps:
    ```bash
    ansible-playbook enroll_agents.yaml -vv
    ```
-
+8. **enroll windows agent through kibana ui"
 
     
