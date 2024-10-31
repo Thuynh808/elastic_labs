@@ -43,18 +43,23 @@ To install and set up the project, follow these steps:
    ```bash
    ansible-playbook zeek.yaml -vv
    ```
-
 6. **cat out elastic password** <br><br>
    ```bash
    cat password_result
    ```
-7. navigate with browser to control's ip on port 5601<br><br>
+7. **navigate with browser to:** <br><br>
+   ```bash
+   http://localhost:5601
+   ```
+8. **log in with user `elastic` password from `password_result`** <br><br>
 
-8. log in with user `elastic` password from password_result
+8. **run windows integration playbook** <br><br>
+   ```bash
+   ansible-playbook windows_integration.yaml -vv
+   ```
+9. **Add fleet server through ui** <br><br>
 
-9. Add fleet server through ui<br><br>
-
-5. run enroll playbook
+5. **run enroll playbook**
    ```bash
    ansible-playbook enroll_agents.yaml -vv
    ```

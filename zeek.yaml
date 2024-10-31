@@ -1,9 +1,9 @@
 ---
 - name: Set up Zeek Cluster
-  hosts: nodes
+  hosts: node1 node2
   tasks:
         
-  - name: Install libpcap (required for packet capture)
+  - name: install dependencies (required for packet capture)
     yum:
       name: "{{ item }}"
       state: present
@@ -12,6 +12,7 @@
       - openssl
       - zlib
       - python3
+      - tar
 
   - name: Open Zeek ports (47760-47762)
     firewalld:

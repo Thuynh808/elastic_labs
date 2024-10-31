@@ -70,62 +70,26 @@
         xpack.fleet.packages:
           - name: fleet_server
             version: latest
-          - name: elastic_agent
-            version: latest
           - name: system
             version: latest
           - name: zeek
             version: latest
+          - name: winlog
+            version: "2.1.2"
         xpack.fleet.agentPolicies:
           - name: Fleet Server policy
             id: fleet-server-policy
-            namespace: default
-            package_policies:
-              - name: fleet-server-1
-                package:
-                  name: fleet_server
-          - name: Agent policy 1
-            id: agent-policy-1
             namespace: default
             monitoring_enabled:
               - logs
               - metrics
             package_policies:
-              - package:
-                  name: system
-                name: system integration 1
-                id: preconfigured-system-1
-                inputs:
-                  system-logfile:
-                    enabled: true
-                    streams:
-                      '[system.auth]':
-                        enabled: true
-                        vars:
-                          paths:
-                            - /var/log/auth.log*
-                            - /var/log/secure*
-                          preserve_original_event: true
-                          tags:
-                            - system-auth
-                      '[system.syslog]':
-                        enabled: true
-                        vars:
-                          paths:
-                            - /var/log/messages*
-                            - /var/log/syslog*
-                            - /var/log/system*
-                          preserve_original_event: false
-                  system-system/metrics:
-                    enabled: true
-                    streams:
-                      '[system.core]':
-                        enabled: true
-                        vars:
-                          period: 20s
+              - name: fleet-server-1
+                package:
+                  name: fleet_server
               - package:
                   name: zeek
-                name: zeek integration 1
+                name: zeek-integration-1
                 id: preconfigured-zeek-1
                 inputs:
                   zeek-logfile:
@@ -170,13 +134,116 @@
                           filenames:
                             - weird.log
                           preserve_original_event: false
-
-        xpack.fleet.fleetServerHosts:
-            - id: fleet-server-host-1
-              name: Fleet Server Host 1
-              host_urls:
-                - https://{{ hostvars['node1']['ansible_host'] }}:8220
-              is_default: true
+                      '[zeek.ssh]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - ssh.log
+                          preserve_original_event: false
+                      '[zeek.rdp]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - rdp.log
+                          preserve_original_event: false
+          - name: Agent policy 1
+            id: agent-policy-1
+            namespace: default
+            monitoring_enabled:
+              - logs
+              - metrics
+            package_policies:
+              - package:
+                  name: zeek
+                name: zeek-integration-2
+                id: preconfigured-zeek-2
+                inputs:
+                  zeek-logfile:
+                    enabled: true
+                    vars:
+                      base_paths:
+                        - /usr/local/zeek/logs/current
+                    streams:
+                      '[zeek.connection]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - conn.log
+                          preserve_original_event: true
+                      '[zeek.dns]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - dns.log
+                          preserve_original_event: false
+                      '[zeek.files]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - files.log
+                          preserve_original_event: false
+                      '[zeek.http]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - http.log
+                          preserve_original_event: true
+                      '[zeek.notice]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - notice.log
+                          preserve_original_event: false
+                      '[zeek.weird]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - weird.log
+                          preserve_original_event: false
+                      '[zeek.ssh]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - ssh.log
+                          preserve_original_event: false
+                      '[zeek.rdp]':
+                        enabled: true
+                        vars:
+                          filenames:
+                            - rdp.log
+                          preserve_original_event: false
+              - package:
+                  name: system
+                name: rhel-system-integration
+                id: preconfigured-system-1
+                inputs:
+                  system-logfile:
+                    enabled: true
+                    streams:
+                      '[system.auth]':
+                        enabled: true
+                        vars:
+                          paths:
+                            - /var/log/auth.log*
+                            - /var/log/secure*
+                          preserve_original_event: false
+                          tags:
+                            - system-auth
+                      '[system.syslog]':
+                        enabled: true
+                        vars:
+                          paths:
+                            - /var/log/messages*
+                            - /var/log/syslog*
+                            - /var/log/system*
+                          preserve_original_event: false
+                  system-system/metrics:
+                    enabled: true
+                    streams:
+                      '[system.core]':
+                        enabled: true
+                        vars:
+                          period: 20s
 
   - name: adjust kibana service file
     lineinfile:
