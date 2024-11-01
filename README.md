@@ -1,3 +1,5 @@
+![elastic_labs](https://i.imgur.com/BsQNMcw.png)
+
 ### Setup Environment
 - **Insert the RHEL ISO on control node** <br><br>
 - **Run the command to mount the ISO:** <br><br>
