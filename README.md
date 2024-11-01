@@ -33,17 +33,9 @@ To install and set up the project, follow these steps:
    ```
 5. **install elasticsearch and kibana:** <br><br>
    ```bash
-   ansible-playbook elastic_kibana_install.yaml -vv
+   ./install.sh
    ```
-7. **config elasticsearch and kibana:** <br><br> 
-   ```bash
-   ansible-playbook elastic_kibana_config.yaml -vv
-   ```
-5. **install and setup zeek on nodes:** <br><br>
-   ```bash
-   ansible-playbook zeek.yaml -vv
-   ```
-6. **cat out elastic password** <br><br>
+6. **print elastic password** <br><br>
    ```bash
    cat password_result
    ```
@@ -53,15 +45,15 @@ To install and set up the project, follow these steps:
    ```
 8. **log in with user `elastic` password from `password_result`** <br><br>
 
-8. **run windows integration playbook** <br><br>
-   ```bash
-   ansible-playbook windows_integration.yaml -vv
-   ```
 9. **Add fleet server through ui** <br><br>
 
 5. **run enroll playbook**
    ```bash
    ansible-playbook enroll_agents.yaml -vv
+   ```
+8. **run windows integration playbook** <br><br>
+   ```bash
+   ansible-playbook windows_integration.yaml -vv
    ```
 8. **enroll windows agent through kibana ui"
 
