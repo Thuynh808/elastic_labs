@@ -1,57 +1,64 @@
 ![elastic_labs](https://i.imgur.com/BsQNMcw.png)
 
 ### Setup Environment
-- **Insert the RHEL ISO on control node** <br><br>
-- **Run the command to mount the ISO** <br><br>
+- **Insert the RHEL ISO on control node**
+  
+- **Run the command to mount the ISO**
+  
   ```bash
   sudo mount /dev/sr0 /mnt
   ```
-- **Add and configure the repository from the ISO** <br><br>
+- **Add and configure the repository from the ISO**
+  
   ```bash
   dnf config-manager --add-repo=file:///mnt/AppStream
   dnf config-manager --add-repo=file:///mnt/BaseOS
   echo "gpgcheck=0" >> /etc/yum.repos.d/mnt_AppStream.repo
   echo "gpgcheck=0" >> /etc/yum.repos.d/mnt_BaseOS.repo
   ```
-- **Install `git` and `ansible-core`** <br><br>
+- **Install `git` and `ansible-core`**
+  
   ```bash
   dnf install -y git ansible-core
   ```
-- **Clone the repository** <br><br>
+- **Clone the repository**
+  
   ```bash
   git clone https://github.com/Thuynh808/elastic_labs
   cd elastic_labs
   ```
-- **Configure inventory `hosts`** <br><br>
+- **Configure inventory `hosts`**
+  
   ```bash
   vim inventory
   ```
-- **Run initial setup - hosts, repos, user, ansible configurations** <br><br>
+- **Run initial setup - hosts, repos, user, ansible configurations**
+  
   ```bash
   ./initial-setup.sh
   ```
    
 ### Installation
-- **Install and configure elasticsearch and kibana** <br><br>
+- **Install and configure elasticsearch and kibana**
   ```bash
   ./install.sh
   ```
-- **Retrieve elastic password** <br><br>
+- **Retrieve elastic password**
   ```bash
   cat password_result
   ```
-- **Access Kibana with browser** <br><br>
+- **Access Kibana with browser**
   ```bash
   http://localhost:5601
   ```
-- **Log in with user `elastic` with password from `password_result`** <br><br>
-- **Add fleet server through UI** <br><br>
+- **Log in with user `elastic` with password from `password_result`**
+- **Add fleet server through UI**
 
 - **Enroll RHEL Agents**
   ```bash
   ansible-playbook enroll_agents.yaml -vv
   ```
-- **Run Windows integration playbook** <br><br>
+- **Run Windows integration playbook**
   ```bash
   ansible-playbook windows_integration.yaml -vv
   ```
