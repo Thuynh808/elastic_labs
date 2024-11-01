@@ -1,5 +1,37 @@
 ![elastic_labs](https://i.imgur.com/BsQNMcw.png)
 
+## Project Overview
+The elastic_labs project is designed to simulate a Elastic Stack environment using Ansible for automated deployment and management. This setup focuses on configuring a comprehensive SIEM system that includes Elasticsearch, Kibana, Zeek integration, and Elastic Agents on a controlled RHEL environment.
+
+### Objectives
+- Automate majority of the setup using Ansible, from system configuration to application deployment
+- Integrate Elasticsearch and Kibana for data indexing and visualization
+- Deploy Zeek on selected nodes to monitor network traffic and log activities
+- Manage Elastic Agents on RHEL and Windows VMs for endpoint security and log collection
+- Create and enforce policies through Fleet management in Kibana, enhancing the real-time security posture
+- Create dashboards and rules for testing
+- Generate log telemetry and trigger alerts for analysis
+
+### Architecture
+- **Control Node:** Hosts Elasticsearch and Kibana orchestrating the SIEM framework
+- **Node1:** Setup as Fleet Server to manage agent policies in a centralized environment
+- **Node1 and Node2:** Run Zeek for network monitoring and Elastic Agents for endpoint security
+- **Node3-Windows:** Extends the monitoring to include Windows-specific threats using Sysmon and Windows Defender integrations
+
+### Prerequisites
+Before we begin, ensure the following are prepared:
+- 3 RHEL 8 VMs
+- 1 Windows 10 VM
+
+| Server           | Role               | CPU | RAM  |
+|------------------|--------------------|-----|------|
+| Control(rhel 8)  | Management         | 4   | 8 GB |
+| Node1(rhel 8)    | Fleet/Zeek         | 1   | 4 GB |     
+| Node2(rhel 8)    | Elastic Agent/zeek | 1   | 1 GB |    
+| Node3(windows 10)| Elastic Agent      | 4   | 8 GB |  
+
+- **Network Configuration**: Set IP addresses and hostnames for each VM. Networking mode is set to NAT Network with port forwarding configured to allow access from host.
+
 > **Note:** Throughout this project, root password set to *'password'*
 
 ### Setup Environment
