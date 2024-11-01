@@ -1,5 +1,7 @@
 ![elastic_labs](https://i.imgur.com/BsQNMcw.png)
 
+> **Note:** Throughout this project, all root and user *password: 'password'*
+
 ### Setup Environment
 - **Insert the RHEL ISO on control node**
   
@@ -37,6 +39,20 @@
   ```bash
   ./initial-setup.sh
   ```
+  <details close>
+  <summary> <h4>Script explanation</h4> </summary>
+  This script does the following <br><br>
+    
+    - Configure /etc/hosts file for nodes
+    - Setup ftp server on control node as repository
+    - Add repo to nodes
+    - Ensure python is installed on nodes
+    - 
+    - Use rhel-system-roles-timesync to synchronize all nodes 
+  </details>
+  
+**Note:** Throughout this project, all root and user *password: 'password'*
+
    
 ### Installation
 - **Install and configure elasticsearch and kibana**
