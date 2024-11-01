@@ -116,7 +116,7 @@
   <summary> <h4>Expand Guide</h4> </summary>
     
   - Navigate to Fleet and add Agent <br><br>
-  - Choose the Agent Policy and copy provided windows command to install Elastic Agent<br><br>
+  - Choose the Agent Policy and copy provided windows command to install and enroll Elastic Agent<br><br>
   > **Note:** Add `--insecure` to the command to trust self signed certificate
   
   ![elastic_labs](https://i.imgur.com/ZiXn1HF.png) <br><br>
