@@ -34,7 +34,7 @@ Before we begin, ensure the following are prepared:
 
 > **Note:** Throughout this project, root password set to *'password'*
 
-### Setup Environment
+## Setup Environment
 - **Insert the RHEL ISO on control node**
   
 - **Run the command to mount the ISO**
@@ -84,7 +84,7 @@ Before we begin, ensure the following are prepared:
   - Use rhel-system-roles-timesync to synchronize all nodes 
   </details>
    
-### Installation
+## Installation
 - **Install and configure elasticsearch and kibana**
   ```bash
   ./install.sh
@@ -155,3 +155,5 @@ Before we begin, ensure the following are prepared:
   - Confirm Agent enrollment and incoming data <br><br>
   ![elastic_labs](https://i.imgur.com/rvHa3du.png) <br><br>
   </details>
+
+## Highlights
