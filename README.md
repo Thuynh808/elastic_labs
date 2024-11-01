@@ -57,7 +57,7 @@ To install and set up the project, follow these steps:
    ```bash
    ansible-playbook windows_integration.yaml -vv
    ```
-8. **enroll windows agent through kibana ui"
+8. **enroll windows agent through kibana ui**
 
 
     
