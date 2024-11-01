@@ -156,4 +156,4 @@ Before we begin, ensure the following are prepared:
   ![elastic_labs](https://i.imgur.com/rvHa3du.png) <br><br>
   </details>
 
-## Highlights
+## Verification
