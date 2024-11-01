@@ -1,6 +1,6 @@
 ![elastic_labs](https://i.imgur.com/BsQNMcw.png)
 
-> **Note:** Throughout this project, all root and user *password: 'password'*
+> **Note:** Throughout this project, root password set to *'password'*
 
 ### Setup Environment
 - **Insert the RHEL ISO on control node**
@@ -34,31 +34,48 @@
   ```bash
   vim inventory
   ```
-- **Run initial setup - hosts, repos, ansible configurations**
+- **Run initial setup**
   
   ```bash
   ./initial-setup.sh
   ```
   <details close>
-  <summary> <h4>Script explanation</h4> </summary>
-  This script does the following <br><br>
+  <summary> <h4>Script Breakdown</h4> </summary>
     
-    - Configure /etc/hosts file for nodes
-    - Setup ftp server on control node as repository
-    - Add repo to nodes
-    - Ensure python is installed on nodes
-    - 
-    - Use rhel-system-roles-timesync to synchronize all nodes 
+  - Install collections from requirements file
+  - Generate root SSH keypair
+  - Copy root public key to nodes
+  - Configure /etc/hosts file for nodes
+  - Setup ftp server on control node as repository
+  - Add repo to nodes
+  - Ensure python is installed on nodes
+  - Use rhel-system-roles-timesync to synchronize all nodes 
   </details>
-  
-**Note:** Throughout this project, all root and user *password: 'password'*
-
    
 ### Installation
 - **Install and configure elasticsearch and kibana**
   ```bash
   ./install.sh
   ```
+  <details close>
+  <summary> <h4>Script Breakdown</h4> </summary>
+    
+  - Setup repositories for Elasticsearch and Kibana
+  - Install Elasticsearch and Kibana
+  - Open firewall ports for services
+  - Set SELinux ports for services
+  - Generate Elasticsearch token for Kibana
+  - Enroll Kibana
+  - Reset password for elastic user
+  - Generate encryption keys for Kibana
+  - Create Fleet server policy
+  - Add Zeek integration policy
+  - Add System logs/metrics integration policy
+  - Adjust Kibana service file
+  - Install Zeek on node1 and node2
+  - Confirm services are up and running on necessary ports
+  </details>
+  
 - **Retrieve elastic password**
   ```bash
   cat password_result
@@ -67,15 +84,42 @@
   ```bash
   http://localhost:5601
   ```
-- **Log in with user `elastic` with password from `password_result`**
-- **Add fleet server through UI**
+  > **Note:** Make sure to setup port forwarding for NAT Network to allow host machine to access VMs
 
-- **Enroll RHEL Agents**
+- **Log in with user `elastic` with password from `password_result`**
+
+- **Add Fleet Server through Kibana UI**
+  <details close>
+  <summary> <h4>Expand guide</h4> </summary>
+    
+  - Navigate to Fleet and add Fleet Server <br><br>
+  - Set Fleet Server host URL and generate service token <br><br>
+  ![elastic_labs](https://i.imgur.com/ma5gQGk.png) <br><br>
+  ![elastic_labs](https://i.imgur.com/jWWZ9tR.png) <br><br>
+  - Copy provided command to install Fleet Server <br><br>
+  ![elastic_labs](https://i.imgur.com/5A0a4lt.png) <br><br>
+  - SSH into `node1` and execute the copied command <br><br>
+  ![elastic_labs](https://i.imgur.com/jWWZ9tR.png) <br><br>
+  ![elastic_labs](https://i.imgur.com/MNtyluj.png) <br><br>
+  </details>
+  
+- **Enroll RHEL Agents defined in `inventory` file** <br>
   ```bash
   ansible-playbook enroll_agents.yaml -vv
   ```
-- **Run Windows integration playbook**
+- **Add `Sysmon` and `Windows Defender` integrations to Agent Policy** <br>
   ```bash
   ansible-playbook windows_integration.yaml -vv
   ```
 - **Enroll Windows agent through Kibana UI**
+  <details close>
+  <summary> <h4>Expand Guide</h4> </summary>
+    
+  - Navigate to Fleet and add Agent <br><br>
+  - Choose the Agent Policy and copy provided windows command to install Elastic Agent<br><br>
+  > **Note:** Add `--insecure` to the command to trust self signed certificate
+  
+  ![elastic_labs](https://i.imgur.com/ZiXn1HF.png) <br><br>
+  - Confirm Agent enrollment and incoming data <br><br>
+  ![elastic_labs](https://i.imgur.com/rvHa3du.png) <br><br>
+  </details>
