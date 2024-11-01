@@ -34,7 +34,7 @@
   ```bash
   vim inventory
   ```
-- **Run initial setup - hosts, repos, user, ansible configurations**
+- **Run initial setup - hosts, repos, ansible configurations**
   
   ```bash
   ./initial-setup.sh
