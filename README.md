@@ -20,6 +20,7 @@ The elastic_labs project is designed to simulate a Elastic Stack environment usi
 
 ### Prerequisites
 Before we begin, ensure the following are prepared:
+- VirtualBox 7.0
 - 3 RHEL 8 VMs
 - 1 Windows 10 VM
 
