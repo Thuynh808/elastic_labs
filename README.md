@@ -212,7 +212,7 @@ Before we begin, ensure the following are prepared:
   - **Using `ncrack` to generate SSH brute force attack on RHEL vm** <br><br>
     ![elastic_labs](https://i.imgur.com/vK1JoYV.png) <br><br>
   - **For the Windows vm, manually fail login attempts to trigger the RDP alert** <br><br>
-  - **A dashboard is created to get a hollistic view and track our alerts** <br><br>
+  - **Dashboard created to get a hollistic view and track our alerts** <br><br>
     ![elastic_labs](https://i.imgur.com/EV4uzWQ.png) <br><br>
   - **Navigating to our alerts page, we can see a few have been triggered** <br><br>
     ![elastic_labs](https://i.imgur.com/a7Qt0Vm.png) <br><br>
