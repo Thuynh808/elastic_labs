@@ -158,31 +158,31 @@ Before we begin, ensure the following are prepared:
 
   ---
 
-  <details close>
-  <summary> <h2>Operational Verification</h2> </summary>
+<details close>
+<summary> <h2>Operational Verification</h2> </summary>
 
-  - **Confirm `/etc/hosts` on nodes** <br><br>
-    ![elastic_labs](https://i.imgur.com/c1qDwOP.png) <br><br>
-  - **Synchronized time across all nodes** <br><br>
-    ![elastic_labs](https://i.imgur.com/VuT455D.png) <br><br>
-  - **Elasticsearch and Kibana are running with no errors** <br><br>
-    ![elastic_labs](https://i.imgur.com/R989tOf.png) <br><br>
-  - **Confirm `zeek` is running on node1 and node2** <br><br>
-    ![elastic_labs](https://i.imgur.com/XxkUmrh.png) <br><br>
-  - **Through Kibana, verify agents are present** <br><br>
-    ![elastic_labs](https://i.imgur.com/4QBdwlx.png) <br><br>
-  - **Verify Agent Policies** <br><br>
-    ![elastic_labs](https://i.imgur.com/2TiUS90.png) <br><br>
-  - **Verify Integrations** <br><br>
-    ![elastic_labs](https://i.imgur.com/CusSugk.png) <br><br>
-    ![elastic_labs](https://i.imgur.com/pmdsl4F.png) <br><br>
-  - **Check health and integrations on individual nodes** <br><br>
-    ![elastic_labs](https://i.imgur.com/d1MmB9J.png) <br><br>
-    ![elastic_labs](https://i.imgur.com/AyL61bM.png) <br><br>
-    ![elastic_labs](https://i.imgur.com/4VkiFN2.png) <br><br>
-  - **Verify logs are coming in from our integrations** <br><br>
-    ![elastic_labs](https://i.imgur.com/yWOb8G2.png) <br><br>
-    ![elastic_labs](https://i.imgur.com/3sodjob.png) <br><br>
-    ![elastic_labs](https://i.imgur.com/kI9bWMd.png) <br><br>
-    </details>
+- **Confirm `/etc/hosts` on nodes** <br><br>
+  ![elastic_labs](https://i.imgur.com/c1qDwOP.png) <br><br>
+- **Synchronized time across all nodes** <br><br>
+  ![elastic_labs](https://i.imgur.com/VuT455D.png) <br><br>
+- **Elasticsearch and Kibana are running with no errors** <br><br>
+  ![elastic_labs](https://i.imgur.com/R989tOf.png) <br><br>
+- **Confirm `zeek` is running on node1 and node2** <br><br>
+  ![elastic_labs](https://i.imgur.com/XxkUmrh.png) <br><br>
+- **Through Kibana, verify agents are present** <br><br>
+  ![elastic_labs](https://i.imgur.com/4QBdwlx.png) <br><br>
+- **Verify Agent Policies** <br><br>
+  ![elastic_labs](https://i.imgur.com/2TiUS90.png) <br><br>
+- **Verify Integrations** <br><br>
+  ![elastic_labs](https://i.imgur.com/CusSugk.png) <br><br>
+  ![elastic_labs](https://i.imgur.com/pmdsl4F.png) <br><br>
+- **Check health and integrations on individual nodes** <br><br>
+  ![elastic_labs](https://i.imgur.com/d1MmB9J.png) <br><br>
+  ![elastic_labs](https://i.imgur.com/AyL61bM.png) <br><br>
+  ![elastic_labs](https://i.imgur.com/4VkiFN2.png) <br><br>
+- **Verify logs are coming in from our integrations** <br><br>
+  ![elastic_labs](https://i.imgur.com/yWOb8G2.png) <br><br>
+  ![elastic_labs](https://i.imgur.com/3sodjob.png) <br><br>
+  ![elastic_labs](https://i.imgur.com/kI9bWMd.png) <br><br>
+  </details>
 
