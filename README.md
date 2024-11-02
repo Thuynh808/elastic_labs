@@ -156,12 +156,12 @@ Before we begin, ensure the following are prepared:
   ![elastic_labs](https://i.imgur.com/rvHa3du.png) <br><br>
   </details>
 
-  ---
+---
 
 <details close>
 <summary> <h2>Operational Verification</h2> </summary>
 
-**In this section, let's make sure our installation process was a success.** <br><br>
+**In this section, let's make sure our installation process was a success and all components are up and running.**
 - **Confirm `/etc/hosts` on nodes** <br><br>
   ![elastic_labs](https://i.imgur.com/c1qDwOP.png) <br><br>
 - **Synchronized time across all nodes** <br><br>
@@ -185,37 +185,25 @@ Before we begin, ensure the following are prepared:
   ![elastic_labs](https://i.imgur.com/yWOb8G2.png) <br><br>
   ![elastic_labs](https://i.imgur.com/3sodjob.png) <br><br>
   ![elastic_labs](https://i.imgur.com/kI9bWMd.png) <br><br>
-  </details>
+</details>
 
-  <details close>
+<details close>
 <summary> <h2>Rules and Alerts</h2> </summary>
 
-- **Confirm `/etc/hosts` on nodes** <br><br>
-  ![elastic_labs](https://i.imgur.com/c1qDwOP.png) <br><br>
-- **Synchronized time across all nodes** <br><br>
-  ![elastic_labs](https://i.imgur.com/VuT455D.png) <br><br>
-- **Elasticsearch and Kibana are running with no errors** <br><br>
-  ![elastic_labs](https://i.imgur.com/R989tOf.png) <br><br>
-- **Confirm `zeek` is running on node1 and node2** <br><br>
-  ![elastic_labs](https://i.imgur.com/XxkUmrh.png) <br><br>
-- **Through Kibana, verify agents are present** <br><br>
-  ![elastic_labs](https://i.imgur.com/4QBdwlx.png) <br><br>
-- **Verify Agent Policies** <br><br>
-  ![elastic_labs](https://i.imgur.com/2TiUS90.png) <br><br>
-- **Verify Integrations** <br><br>
-  ![elastic_labs](https://i.imgur.com/CusSugk.png) <br><br>
-  ![elastic_labs](https://i.imgur.com/pmdsl4F.png) <br><br>
-- **Check health and integrations on individual nodes** <br><br>
-  ![elastic_labs](https://i.imgur.com/d1MmB9J.png) <br><br>
-  ![elastic_labs](https://i.imgur.com/AyL61bM.png) <br><br>
-  ![elastic_labs](https://i.imgur.com/4VkiFN2.png) <br><br>
-- **Verify logs are coming in from our integrations** <br><br>
-  ![elastic_labs](https://i.imgur.com/yWOb8G2.png) <br><br>
-  ![elastic_labs](https://i.imgur.com/3sodjob.png) <br><br>
-  ![elastic_labs](https://i.imgur.com/kI9bWMd.png) <br><br>
-  </details>
+**In this section, we'll create simple brute force rules to test our deployment.**
+- **Navigate to Rules section and create new rule** <br><br>
+  ![elastic_labs](https://i.imgur.com/shTjvgm.png) <br><br>
+- **Specify custom query and threshold for our brute force rules** <br><br>
+  ![elastic_labs](https://i.imgur.com/du2MhMY.png) <br><br>
+- **Set MITRE ATT@CK tactics and techniques** <br><br>
+  ![elastic_labs](https://i.imgur.com/xPR9xzv.png) <br><br>
+- **Confirm our created brute force rules** <br><br>
+  ![elastic_labs](https://i.imgur.com/NSlDson.png) <br><br>
+  ![elastic_labs](https://i.imgur.com/nv4YgeR.png) <br><br>
+  ![elastic_labs](https://i.imgur.com/EEtQr2A.png) <br><br>
+</details>
 
-  <details close>
+<details close>
 <summary> <h2>Testing and Analysis</h2> </summary>
 
 - **Confirm `/etc/hosts` on nodes** <br><br>
@@ -242,6 +230,8 @@ Before we begin, ensure the following are prepared:
   ![elastic_labs](https://i.imgur.com/3sodjob.png) <br><br>
   ![elastic_labs](https://i.imgur.com/kI9bWMd.png) <br><br>
   </details>
+
+---
 
   ## Conclusion
 
