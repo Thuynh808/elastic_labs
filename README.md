@@ -254,7 +254,6 @@ Before we begin, ensure the following are prepared:
   
 ---
 
-  ## Conclusion
-
-  This project was super fun and engaging! From diving into documentations to troubleshooting errors,  
+## Conclusion
+This project was super fun and engaging! From diving into documentations to troubleshooting errors,  
 
