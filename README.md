@@ -205,7 +205,7 @@ Before we begin, ensure the following are prepared:
 <summary> <h2>Testing and Analysis</h2> </summary>
 
   <details close>
-  <summary> <h3>Trigger Alerts</h3></summary>
+  <summary> <h3>⚠️ Trigger Alerts</h3></summary>
 
   **Now let's trigger some alerts!**
   - **Using `ncrack` to generate SSH brute force attack on RHEL vm** <br><br>
@@ -213,54 +213,41 @@ Before we begin, ensure the following are prepared:
   - **For the Windows vm, manually fail login attempts to trigger the RDP alert** <br><br>
   - **A dashboard is created to get a hollistic view and track our alerts** <br><br>
     ![elastic_labs](https://i.imgur.com/EV4uzWQ.png) <br><br>
+  - **Navigating to our alerts page, we can see a few have been triggered** <br><br>
+    ![elastic_labs](https://i.imgur.com/a7Qt0Vm.png) <br><br>
   </details>
   
   <details close>
-  <summary> <h3>SSH Brute force</h3></summary>
+  <summary> <h3>🔍 SSH Brute Force</h3></summary>
 
-  - **Using `ncrack` to generate SSH brute force attack on RHEL vm** <br><br>
-    ![elastic_labs](https://i.imgur.com/vK1JoYV.png) <br><br>
-  - **Synchronized time across all nodes** <br><br>
-    ![elastic_labs](https://i.imgur.com/VuT455D.png) <br><br>
-  - **Elasticsearch and Kibana are running with no errors** <br><br>
-    ![elastic_labs](https://i.imgur.com/R989tOf.png) <br><br>
-  - **Confirm `zeek` is running on node1 and node2** <br><br>
-    ![elastic_labs](https://i.imgur.com/XxkUmrh.png) <br><br>
-  - **Through Kibana, verify agents are present** <br><br>
-    ![elastic_labs](https://i.imgur.com/4QBdwlx.png) <br><br>
-  - **Verify Agent Policies** <br><br>
-    ![elastic_labs](https://i.imgur.com/2TiUS90.png) <br><br>
-  - **Verify Integrations** <br><br>
-    ![elastic_labs](https://i.imgur.com/CusSugk.png) <br><br>
-    ![elastic_labs](https://i.imgur.com/pmdsl4F.png) <br><br>
-  - **Check health and integrations on individual nodes** <br><br>
-    ![elastic_labs](https://i.imgur.com/d1MmB9J.png) <br><br>
-    ![elastic_labs](https://i.imgur.com/AyL61bM.png) <br><br>
-    ![elastic_labs](https://i.imgur.com/4VkiFN2.png) <br><br>
+  - **Upon clicking on SSH Brute Force Alert, we can review the alert description and alert reason** <br><br>
+    ![elastic_labs](https://i.imgur.com/wLa13aI.png) <br><br>
+  - **Diving into our logs, we can see multiple entries where the `root` account failed `ssh_login` on `node2.streetrack.org`** <br><br>
+    ![elastic_labs](https://i.imgur.com/j5FJaNw.png) <br><br>
+    ![elastic_labs](https://i.imgur.com/QLnsC1r.png) <br><br>
+  - **Here we can confirm details of the host thats been targeted, username, source IP, and process name** <br><br>
+    ![elastic_labs](https://i.imgur.com/up3fC6O.png) <br><br>
+    ![elastic_labs](https://i.imgur.com/VyUlfJF.png) <br><br>
+  - **Diving into zeek logs, we can verify the network connection between the related IPs, ports used, and SSH client version** <br><br>
+    ![elastic_labs](https://i.imgur.com/YrwhHkN.png) <br><br>
+    ![elastic_labs](https://i.imgur.com/z0zvKcY.png) <br><br>
+    ![elastic_labs](https://i.imgur.com/awD1lM1.png) <br><br>
   </details>
 
   <details close>
-  <summary> <h3>RDP Brute force</h3></summary>
+  <summary> <h3>🔍 RDP Brute force</h3></summary>
 
-  - **Using `ncrack` to generate SSH brute force attack on RHEL vm** <br><br>
-    ![elastic_labs](https://i.imgur.com/vK1JoYV.png) <br><br>
-  - **Synchronized time across all nodes** <br><br>
-    ![elastic_labs](https://i.imgur.com/VuT455D.png) <br><br>
-  - **Elasticsearch and Kibana are running with no errors** <br><br>
-    ![elastic_labs](https://i.imgur.com/R989tOf.png) <br><br>
-  - **Confirm `zeek` is running on node1 and node2** <br><br>
-    ![elastic_labs](https://i.imgur.com/XxkUmrh.png) <br><br>
-  - **Through Kibana, verify agents are present** <br><br>
-    ![elastic_labs](https://i.imgur.com/4QBdwlx.png) <br><br>
-  - **Verify Agent Policies** <br><br>
-    ![elastic_labs](https://i.imgur.com/2TiUS90.png) <br><br>
-  - **Verify Integrations** <br><br>
-    ![elastic_labs](https://i.imgur.com/CusSugk.png) <br><br>
-    ![elastic_labs](https://i.imgur.com/pmdsl4F.png) <br><br>
-  - **Check health and integrations on individual nodes** <br><br>
-    ![elastic_labs](https://i.imgur.com/d1MmB9J.png) <br><br>
-    ![elastic_labs](https://i.imgur.com/AyL61bM.png) <br><br>
-    ![elastic_labs](https://i.imgur.com/4VkiFN2.png) <br><br>
+  - **Now let's take a look at the RDP Brute Force alert** <br><br>
+    ![elastic_labs](https://i.imgur.com/51UlzWj.png) <br><br>
+  - **Diving into our logs, we can see that `node3-windows` that's been targeted, as well as useful details in the message section** <br><br>
+    ![elastic_labs](https://i.imgur.com/8NpXzch.png) <br><br>
+    ![elastic_labs](https://i.imgur.com/CfyabM6.png) <br><br>
+  - **Here we can confirm more details like failure reason, username and source IP** <br><br>
+    ![elastic_labs](https://i.imgur.com/uBT7VJz.png) <br><br>
+    ![elastic_labs](https://i.imgur.com/NfOaWOx.png) <br><br>
+  - **Digging into zeek logs, we can verify the network connection between the related IPs, ports used, and the protocol used** <br><br>
+    ![elastic_labs](https://i.imgur.com/PFIzDOn.png) <br><br>
+    ![elastic_labs](https://i.imgur.com/rK4qch3.png) <br><br>
   </details>
   
 </details>
